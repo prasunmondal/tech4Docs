@@ -2,8 +2,9 @@ package com.prasunmondal.tech4docs.models
 
 import com.prasunmondal.tech4docs.enums.CardType
 import com.prasunmondal.tech4docs.enums.CardsProvider
+import java.io.Serializable
 
-class Cards {
+class Cards: Serializable {
     var cardType: CardType
     var cardsProvider: CardsProvider
     var cardNumber: String
@@ -37,5 +38,9 @@ class Cards {
         this.pin = pin
         this.linkedBank = linkedBank
         this.name = name
+    }
+
+    override fun toString(): String {
+        return this.cardType.toString() + "\n" + this.cardsProvider.toString() + "\n" +this.cardNumber + "\n" +this.cardHolderName + "\n" +this.expiryDate + "\n" +this.expiryMonth + "\n" +this.CVV + "\n" +this.pin + "\n" +this.linkedBank + "\n" +this.name + "\n";
     }
 }

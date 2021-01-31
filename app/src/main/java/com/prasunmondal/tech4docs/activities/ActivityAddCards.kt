@@ -48,11 +48,13 @@ class ActivityAddCards : AppCompatActivity() {
     }
 
     private fun getCardType(): CardType {
-        return CardType.valueOf(editCardsProvider.text.toString())
+//        return CardType.valueOf(editCardsProvider.text.toString())
+        return CardType.CREDIT
     }
     private fun getcardsProvider(): CardsProvider {
-        var provider = editCardsProvider.text.toString()
-        return CardsProvider.valueOf(provider)
+//        var provider = editCardsProvider.text.toString()
+//        return CardsProvider.valueOf(provider)
+        return CardsProvider.VISA
     }
     private fun getcardNumber(): String {
         return editCardNumber.text.toString()
