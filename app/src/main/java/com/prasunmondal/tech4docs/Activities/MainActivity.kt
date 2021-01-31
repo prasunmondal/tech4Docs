@@ -1,9 +1,10 @@
-package com.prasunmondal.tech4docs
+package com.prasunmondal.tech4docs.Activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.prasunmondal.tech4docs.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
