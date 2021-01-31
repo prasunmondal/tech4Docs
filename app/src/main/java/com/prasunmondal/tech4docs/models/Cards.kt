@@ -6,7 +6,7 @@ import com.prasunmondal.tech4docs.enums.CardsProvider
 class Cards {
     var cardType: CardType
     var cardsProvider: CardsProvider
-    var cardNumber: Int
+    var cardNumber: String
     var cardHolderName: String
     var expiryDate: Int
     var expiryMonth: Int
@@ -15,28 +15,27 @@ class Cards {
     var linkedBank: String
     var name: String
 
-
     constructor(
-        number: Int,
+        cardType: CardType,
+        cardsProvider: CardsProvider,
+        cardNumber: String,
+        cardHolderName: String,
         expiryDate: Int,
         expiryMonth: Int,
         CVV: Int,
         pin: Int,
-        name: String,
-        cardType: CardType,
-        cardsProvider: CardsProvider,
         linkedBank: String,
-        cardHolderName: String
+        name: String
     ) {
-        this.cardNumber = number
+        this.cardType = cardType
+        this.cardsProvider = cardsProvider
+        this.cardNumber = cardNumber
+        this.cardHolderName = cardHolderName
         this.expiryDate = expiryDate
         this.expiryMonth = expiryMonth
         this.CVV = CVV
         this.pin = pin
-        this.name = name
-        this.cardType = cardType
-        this.cardsProvider = cardsProvider
         this.linkedBank = linkedBank
-        this.cardHolderName = cardHolderName
+        this.name = name
     }
 }
