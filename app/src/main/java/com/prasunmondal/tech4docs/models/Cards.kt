@@ -1,7 +1,7 @@
-package com.prasunmondal.tech4docs.Models
+package com.prasunmondal.tech4docs.models
 
-import com.prasunmondal.tech4docs.Enums.CardType
-import com.prasunmondal.tech4docs.Enums.CardsProvider
+import com.prasunmondal.tech4docs.enums.CardType
+import com.prasunmondal.tech4docs.enums.CardsProvider
 
 class Cards {
     var name: String
@@ -12,6 +12,7 @@ class Cards {
     var pin: Int
     var cardsProvider: CardsProvider
     var cardType: CardType
+    var linkedBank: String
 
     constructor(
             number: Int,
@@ -21,7 +22,8 @@ class Cards {
             pin: Int,
             name: String,
             cardType: CardType,
-            cardsProvider: CardsProvider
+            cardsProvider: CardsProvider,
+            linkedBank: String
     ) {
         this.number = number
         this.expiryDate = expiryDate
@@ -31,5 +33,6 @@ class Cards {
         this.name = name
         this.cardType = cardType
         this.cardsProvider = cardsProvider
+        this.linkedBank = linkedBank
     }
 }

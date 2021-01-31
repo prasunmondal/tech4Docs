@@ -1,4 +1,4 @@
-package com.prasunmondal.tech4docs.Activities
+package com.prasunmondal.tech4docs.activities
 
 import android.content.Intent
 import android.os.Bundle

@@ -1,6 +1,6 @@
 package com.prasunmondal.tech4docs
 
-import com.prasunmondal.tech4docs.Models.Cards
+import com.prasunmondal.tech4docs.models.Cards
 
 class CardManager {
 

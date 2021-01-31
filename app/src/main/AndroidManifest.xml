@@ -9,9 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tech4Docs">
-        <activity android:name=".AddCard"></activity>
-        <activity android:name=".Activities.MoneyMinded" />
-        <activity android:name=".Activities.MainActivity">
+        <activity
+            android:name=".activities.ViewCards"
+            android:label="@string/title_activity_view_cards"
+            android:theme="@style/Theme.Tech4Docs.NoActionBar"></activity>
+        <activity android:name=".activities.ActivityAddCards" />
+        <activity android:name=".AddCard" />
+        <activity android:name=".activities.MoneyMinded" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

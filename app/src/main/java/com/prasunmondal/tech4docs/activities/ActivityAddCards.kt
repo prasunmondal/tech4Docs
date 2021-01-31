@@ -1,12 +1,14 @@
-package com.prasunmondal.tech4docs.Activities
+package com.prasunmondal.tech4docs.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.prasunmondal.tech4docs.R
 
-class MoneyMinded : AppCompatActivity() {
+class ActivityAddCards : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_money_minded)
+        setContentView(R.layout.activity_add_cards)
     }
+
+
 }
