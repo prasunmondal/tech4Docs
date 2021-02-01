@@ -28,9 +28,9 @@ class ViewCards : AppCompatActivity() {
             return
 
         var textView = findViewById<TextView>(R.id.textView2)
-
+        textView.text = ""
         for(card in  CardManager.singleton.instance.cardsList) {
-            textView.text = textView.text.toString() + card.toString()
+            textView.text = textView.text.toString() + card.toString() + "\n\n"
         }
     }
 

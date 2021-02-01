@@ -3,6 +3,7 @@ package com.prasunmondal.tech4docs.models
 import com.prasunmondal.tech4docs.enums.CardType
 import com.prasunmondal.tech4docs.enums.CardsProvider
 import java.io.Serializable
+import com.google.gson.Gson
 
 class Cards: Serializable {
     var cardType: CardType
@@ -41,6 +42,6 @@ class Cards: Serializable {
     }
 
     override fun toString(): String {
-        return this.cardType.toString() + "\n" + this.cardsProvider.toString() + "\n" +this.cardNumber + "\n" +this.cardHolderName + "\n" +this.expiryDate + "\n" +this.expiryMonth + "\n" +this.CVV + "\n" +this.pin + "\n" +this.linkedBank + "\n" +this.name + "\n";
+        return Gson().toJson(this).toString()
     }
 }
