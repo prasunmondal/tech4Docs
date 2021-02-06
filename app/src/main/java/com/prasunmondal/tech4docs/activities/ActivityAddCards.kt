@@ -62,6 +62,7 @@ class ActivityAddCards : AppCompatActivity() {
         layout.setBackgroundResource(R.color.white)
         addBox(layout, "Card Name")
         addBox(layout, "Card No.")
+        addBox(layout, "CVV")
     }
 
     @SuppressLint("ResourceAsColor")
@@ -71,16 +72,13 @@ class ActivityAddCards : AppCompatActivity() {
         textInputLayout.hint = title
         textInputLayout.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
         textInputLayout.boxStrokeColor = R.color.black
-//        textInputLayout.out
-//        textInputLayout.boxBackgroundColor = R.color.black
-//        textInputLayout.setBackgroundColor(R.color.black)
         textInputLayout.setBoxCornerRadii(5F, 5F, 5F, 5F);
+        textInputLayout.setPadding(0, 40,0,10)
 
         var edittext = TextInputEditText(this)
-//        edittext.background = null
         edittext.setBackgroundColor(R.color.black)
         edittext.setBackgroundResource(R.color.white)
-        edittext.setPadding(20, 50,20,10)
+        edittext.setPadding(20, 40,20,10)
 
         // adding components
         textInputLayout.addView(edittext)
