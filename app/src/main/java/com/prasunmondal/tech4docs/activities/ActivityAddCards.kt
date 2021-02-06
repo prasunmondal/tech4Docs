@@ -12,7 +12,10 @@ import com.prasunmondal.tech4docs.CardManager
 import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.enums.CardType
 import com.prasunmondal.tech4docs.enums.CardsProvider
+import com.prasunmondal.tech4docs.models.AttributeMetadata
 import com.prasunmondal.tech4docs.models.Cards
+import com.prasunmondal.tech4docs.models.DataTypeMetadata
+import com.prasunmondal.tech4docs.models.DataTypes
 
 
 class ActivityAddCards : AppCompatActivity() {
@@ -27,30 +30,30 @@ class ActivityAddCards : AppCompatActivity() {
     lateinit var editLinkedBank: EditText
     lateinit var editName: EditText
 
+
+    var card = DataTypeMetadata()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_cards)
-        initiallizeUIElements()
+        createDataType()
         addAttributes()
+    }
+
+    private fun createDataType() {
+        var attributeList = mutableListOf<AttributeMetadata>()
+        attributeList.add(AttributeMetadata("Card Name"))
+        attributeList.add(AttributeMetadata("Card Number"))
+        attributeList.add(AttributeMetadata("CVV"))
+        attributeList.add(AttributeMetadata("PIN"))
+        card.attributes = attributeList
     }
 
     fun onClickSaveCardButton(view: View) {
         var card = Cards(getCardType(), getcardsProvider(), getcardNumber(), getcardHolderName(), getexpiryDate(), getexpiryMonth(), getCVV(), getpin(), getlinkedBank(), getName())
         CardManager.singleton.instance.cardsList.add(card)
         CardManager.singleton.instance.write(this)
-    }
-
-    private fun initiallizeUIElements() {
-//        editCardType = findViewById(R.id.addCards_edit_cardType)
-//        editCardsProvider = findViewById(R.id.addCards_edit_cardsProvider)
-//        editCardNumber = findViewById(R.id.addCards_edit_cardNumber)
-//        editCardHolderName = findViewById(R.id.addCards_edit_cardHolderName)
-//        editExpiryDate = findViewById(R.id.addCards_edit_expiryDate)
-//        editExpiryMonth = findViewById(R.id.addCards_edit_expiryMonth)
-//        editCVV = findViewById(R.id.addCards_edit_CVV)
-//        editPIN = findViewById(R.id.addCards_edit_pin)
-//        editLinkedBank = findViewById(R.id.addCards_edit_linkedBank)
-//        editName = findViewById(R.id.addCards_edit_name)
     }
 
     @SuppressLint("ResourceAsColor")
@@ -60,13 +63,14 @@ class ActivityAddCards : AppCompatActivity() {
         layout.removeAllViews()
         layout.setBackgroundColor(R.color.white)
         layout.setBackgroundResource(R.color.white)
-        addBox(layout, "Card Name")
-        addBox(layout, "Card No.")
-        addBox(layout, "CVV")
+
+        this.card.attributes.forEach { c ->
+            addBox(layout, c.attributeName, "")
+        }
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun addBox(layout: LinearLayout, title: String) {
+    private fun addBox(layout: LinearLayout, title: String, value: String) {
         var textInputLayout = TextInputLayout(this)
 
         textInputLayout.hint = title
@@ -76,6 +80,7 @@ class ActivityAddCards : AppCompatActivity() {
         textInputLayout.setPadding(0, 40,0,10)
 
         var edittext = TextInputEditText(this)
+        edittext.setText(value)
         edittext.setBackgroundColor(R.color.black)
         edittext.setBackgroundResource(R.color.white)
         edittext.setPadding(20, 40,20,10)
