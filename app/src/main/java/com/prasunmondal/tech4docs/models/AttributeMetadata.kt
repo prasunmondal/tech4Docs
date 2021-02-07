@@ -1,6 +1,8 @@
 package com.prasunmondal.tech4docs.models
 
-class AttributeMetadata {
+import java.io.Serializable
+
+class AttributeMetadata: Serializable {
     lateinit var attributeName: String
     lateinit var attributeValue: String
 
