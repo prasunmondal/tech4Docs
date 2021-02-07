@@ -15,7 +15,6 @@ import com.prasunmondal.tech4docs.enums.CardsProvider
 import com.prasunmondal.tech4docs.models.AttributeMetadata
 import com.prasunmondal.tech4docs.models.Cards
 import com.prasunmondal.tech4docs.models.DataTypeMetadata
-import com.prasunmondal.tech4docs.models.DataTypes
 
 
 class ActivityAddCards : AppCompatActivity() {
@@ -31,7 +30,7 @@ class ActivityAddCards : AppCompatActivity() {
     lateinit var editName: EditText
 
 
-    var card = DataTypeMetadata()
+    var card = DataTypeMetadata("")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,10 +1,10 @@
 package com.prasunmondal.tech4docs.activities
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.prasunmondal.tech4docs.R
@@ -13,10 +13,17 @@ import com.prasunmondal.tech4docs.models.DataTypeMetadata
 
 class ConfigureDataType : AppCompatActivity() {
 
-    var card = DataTypeMetadata()
+    lateinit var card: DataTypeMetadata
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_configure_data_type)
+        fetchReceivedData()
+    }
+
+    private fun fetchReceivedData() {
+        val bundle = intent.extras
+        assert(bundle != null)
+        card = bundle!!.getSerializable("dataTypeToConfigure") as DataTypeMetadata
     }
 
     fun displayLines() {
@@ -37,13 +44,13 @@ class ConfigureDataType : AppCompatActivity() {
         textInputLayout.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
         textInputLayout.boxStrokeColor = R.color.black
         textInputLayout.setBoxCornerRadii(5F, 5F, 5F, 5F);
-        textInputLayout.setPadding(0, 40,0,10)
+        textInputLayout.setPadding(0, 40, 0, 10)
 
         var edittext = TextInputEditText(this)
         edittext.setText(value)
         edittext.setBackgroundColor(R.color.black)
         edittext.setBackgroundResource(R.color.white)
-        edittext.setPadding(20, 40,20,10)
+        edittext.setPadding(20, 40, 20, 10)
 
         // adding components
         textInputLayout.addView(edittext)
