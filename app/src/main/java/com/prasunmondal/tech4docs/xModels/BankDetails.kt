@@ -1,4 +1,4 @@
-package com.prasunmondal.tech4docs.models
+package com.prasunmondal.tech4docs.xModels
 
 class BankDetails {
 

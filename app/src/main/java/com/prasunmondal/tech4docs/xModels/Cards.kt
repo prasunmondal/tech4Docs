@@ -1,4 +1,4 @@
-package com.prasunmondal.tech4docs.models
+package com.prasunmondal.tech4docs.xModels
 
 import com.prasunmondal.tech4docs.enums.CardType
 import com.prasunmondal.tech4docs.enums.CardsProvider

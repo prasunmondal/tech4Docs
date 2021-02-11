@@ -2,7 +2,7 @@ package com.prasunmondal.tech4docs
 
 import android.content.Context
 import android.util.Log
-import com.prasunmondal.tech4docs.models.Cards
+import com.prasunmondal.tech4docs.xModels.Cards
 import java.io.Serializable
 import java.lang.Exception
 

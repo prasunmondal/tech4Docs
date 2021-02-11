@@ -8,12 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.prasunmondal.tech4docs.R
-import com.prasunmondal.tech4docs.models.AttributeMetadata
-import com.prasunmondal.tech4docs.models.DataTypeMetadata
+import com.prasunmondal.tech4docs.xModels.AttributeMetadata
+import com.prasunmondal.tech4docs.models.RecordType
 
 class ConfigureDataType : AppCompatActivity() {
 
-    lateinit var card: DataTypeMetadata
+    lateinit var card: RecordType
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_configure_data_type)
@@ -23,7 +23,7 @@ class ConfigureDataType : AppCompatActivity() {
     private fun fetchReceivedData() {
         val bundle = intent.extras
         assert(bundle != null)
-        card = bundle!!.getSerializable("dataTypeToConfigure") as DataTypeMetadata
+        card = bundle!!.getSerializable("dataTypeToConfigure") as RecordType
     }
 
     fun displayLines() {
