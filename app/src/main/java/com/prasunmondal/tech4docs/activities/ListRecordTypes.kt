@@ -13,7 +13,7 @@ import com.prasunmondal.tech4docs.models.RecordType
 import com.prasunmondal.tech4docs.models.Vault
 
 
-class CreateDataType : AppCompatActivity() {
+class ListRecordTypes : AppCompatActivity() {
 
     lateinit var spinner: AutoCompleteTextView
     lateinit var datatypeNameInput: EditText

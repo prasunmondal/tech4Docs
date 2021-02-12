@@ -30,7 +30,7 @@ class Vault: Serializable {
 
         fun create(context: Context, password: String): Vault {
             if(isValidCreationPassword(password)) {
-                if(this.instance == null)
+                if(instance == null)
                     instance = Vault(context, password)
                 return instance!!
             }
@@ -39,7 +39,7 @@ class Vault: Serializable {
 
         fun load(context: Context, password: String): Vault {
             if(instance == null)
-                read(context)
+                instance = read(context)
 
             if(instance == null)
                 throw NoVaultException()
