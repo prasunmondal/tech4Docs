@@ -49,23 +49,24 @@ class PasswordPage : AppCompatActivity() {
     }
 
     fun onClickPasswordSubmitButton(view: View) {
-        when (actionMode) {
-            ActionMode.CREATE_VAULT ->
-                createANewVault()
-            ActionMode.OPEN_VAULT ->
-                loadAVault()
-        }
-        goToCreateRecordTypePage()
+            when (actionMode) {
+                ActionMode.CREATE_VAULT ->
+                    createANewVault()
+                ActionMode.OPEN_VAULT ->
+                    loadAVault()
+            }
     }
 
     private fun loadAVault() {
         Vault.load(this, getInputPassword())
+        goToCreateRecordTypePage()
     }
 
     private fun createANewVault() {
         try {
             Vault.create(this, getInputPassword())
             Toast.makeText(this, "New Vault Created!", Toast.LENGTH_SHORT).show()
+            goToCreateRecordTypePage()
         } catch (e: PasswordComplexityNotMet) {
             Toast.makeText(
                 this,
