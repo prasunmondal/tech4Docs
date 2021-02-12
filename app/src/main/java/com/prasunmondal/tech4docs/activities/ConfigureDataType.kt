@@ -1,8 +1,11 @@
 package com.prasunmondal.tech4docs.activities
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -12,20 +15,40 @@ import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.enums.AnswerType
 import com.prasunmondal.tech4docs.enums.HideLevel
 import com.prasunmondal.tech4docs.models.Question
-import com.prasunmondal.tech4docs.xModels.AttributeMetadata
 import com.prasunmondal.tech4docs.models.RecordType
 
 class ConfigureDataType : AppCompatActivity() {
 
     lateinit var recordType: RecordType
     lateinit var questionInput: EditText
-    lateinit var answerType: EditText
+    lateinit var answerType: AutoCompleteTextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_configure_data_type)
         initiallizeUIElements()
+        populateAnswerTypes()
         fetchReceivedData()
+    }
+
+//    private fun populateAnswerTypes() {
+//
+//        answerType.
+//    }
+
+    fun populateAnswerTypes() {
+        var displayList = arrayListOf<String>()
+        for(c in AnswerType.values()) {
+            displayList.add("kehbksb")
+        }
+        displayList.add("kehbksb")
+        displayList.add("kehbksb")
+        displayList.add("kehbksb")
+        displayList.add("kehbksb")
+        val adapter = ArrayAdapter(this, android.R.layout.select_dialog_item, displayList)
+        answerType.threshold = 1
+        answerType.setAdapter(adapter)
+        answerType.setTextColor(Color.RED)
     }
 
     private fun fetchReceivedData() {
@@ -40,7 +63,7 @@ class ConfigureDataType : AppCompatActivity() {
         layout.removeAllViews()
 
         this.recordType.questions.forEach { c ->
-            addLineInUI(layout, c.question, "")
+            addLineInUI(layout, c.answerType.toString() + " (" + c.sequenceNo + ")", c.question)
         }
     }
 
@@ -78,6 +101,6 @@ class ConfigureDataType : AppCompatActivity() {
 
     fun initiallizeUIElements() {
         questionInput = findViewById(R.id.configure_recordType_editText_addQues)
-        answerType = findViewById(R.id.configure_recordType_editText_addQuesType)
+        answerType = findViewById(R.id.configure_recordType_editText_addAnswerType)
     }
 }

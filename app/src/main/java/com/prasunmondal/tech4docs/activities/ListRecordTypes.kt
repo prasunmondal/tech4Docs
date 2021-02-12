@@ -89,6 +89,7 @@ class ListRecordTypes : AppCompatActivity() {
         var dataTypeCreated = RecordType(name)
         dataTypeCreated.questions = ArrayList()
         dataCollection.add(dataTypeCreated)
+        displayLines()
         goToConfigureActivity(dataTypeCreated)
     }
 
@@ -102,6 +103,5 @@ class ListRecordTypes : AppCompatActivity() {
         bundle.putSerializable("dataTypeToConfigure", recordType)
         myIntent.putExtras(bundle)
         this.startActivity(myIntent)
-        finish()
     }
 }
