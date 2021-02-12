@@ -1,5 +1,8 @@
 package com.prasunmondal.tech4docs.models
 
+import com.prasunmondal.tech4docs.enums.AnswerType
+import com.prasunmondal.tech4docs.enums.HideLevel
+
 class Question {
     var id: String
     var question: String
