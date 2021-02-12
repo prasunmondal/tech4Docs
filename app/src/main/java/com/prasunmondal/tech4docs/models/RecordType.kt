@@ -18,5 +18,5 @@ class RecordType: Serializable {
         return "skbfkvb"
     }
 
-    var attributes = mutableListOf<AttributeMetadata>()
+//    var attributes = mutableListOf<AttributeMetadata>()
 }

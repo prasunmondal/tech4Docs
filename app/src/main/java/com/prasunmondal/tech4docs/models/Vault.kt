@@ -17,6 +17,7 @@ class Vault: Serializable {
     private constructor(context: Context, password: String) {
         this.password = password
         this.recordTypes = mutableListOf<RecordType>() as ArrayList<RecordType>
+
         write(context)
     }
 

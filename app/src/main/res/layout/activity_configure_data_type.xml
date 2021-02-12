@@ -8,13 +8,13 @@
 
     <Button
         android:id="@+id/create_data_type_addDataRow"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:text="Add Data Row"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:onClick="createNewDataRow"
-        app:layout_constraintBottom_toBottomOf="@+id/container2"
+        android:text="Add Data Row"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/create_data_type_dataRowsContainer"
+        app:layout_constraintTop_toBottomOf="@+id/container2" />
 
     <LinearLayout
         android:id="@+id/create_data_type_dataRowsContainer"
@@ -23,21 +23,40 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_data_type_addDataRow"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/create_data_type_addDataRow"
+        app:layout_constraintVertical_bias="0.0"></LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/container2"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Info Type"
-        app:layout_constraintEnd_toStartOf="@+id/create_data_type_addDataRow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password_page_edittext_password"
+            android:id="@+id/configure_recordType_editText_addQues"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:inputType="textEmailAddress"
+            app:boxStrokeColor="@color/cardview_dark_background" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/container3"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:hint="Info Type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/configure_recordType_editText_addQuesType"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="20dp"

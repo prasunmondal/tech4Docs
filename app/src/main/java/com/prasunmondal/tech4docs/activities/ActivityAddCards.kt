@@ -46,7 +46,7 @@ class ActivityAddCards : AppCompatActivity() {
         attributeList.add(AttributeMetadata("Card Number"))
         attributeList.add(AttributeMetadata("CVV"))
         attributeList.add(AttributeMetadata("PIN"))
-        card.attributes = attributeList
+//        card.attributes = attributeList
     }
 
     fun onClickSaveCardButton(view: View) {
@@ -63,9 +63,9 @@ class ActivityAddCards : AppCompatActivity() {
         layout.setBackgroundColor(R.color.white)
         layout.setBackgroundResource(R.color.white)
 
-        this.card.attributes.forEach { c ->
-            addBox(layout, c.attributeName, "")
-        }
+//        this.card.attributes.forEach { c ->
+//            addBox(layout, c.attributeName, "")
+//        }
     }
 
     @SuppressLint("ResourceAsColor")

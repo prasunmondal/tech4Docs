@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.prasunmondal.tech4docs.R
+import com.prasunmondal.tech4docs.models.Question
 import com.prasunmondal.tech4docs.models.RecordType
 import com.prasunmondal.tech4docs.models.Vault
 
@@ -86,6 +87,7 @@ class ListRecordTypes : AppCompatActivity() {
         var name: String = datatypeNameInput.text.toString()
         var dataCollection = Vault.get(this).recordTypes
         var dataTypeCreated = RecordType(name)
+        dataTypeCreated.questions = ArrayList()
         dataCollection.add(dataTypeCreated)
         goToConfigureActivity(dataTypeCreated)
     }
@@ -94,7 +96,7 @@ class ListRecordTypes : AppCompatActivity() {
 
     }
 
-    fun goToConfigureActivity(recordType: RecordType) {
+    private fun goToConfigureActivity(recordType: RecordType) {
         val myIntent = Intent(this, ConfigureDataType::class.java)
         val bundle = Bundle()
         bundle.putSerializable("dataTypeToConfigure", recordType)

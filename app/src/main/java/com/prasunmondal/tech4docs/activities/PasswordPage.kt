@@ -1,4 +1,4 @@
-package com.prasunmondal.tech4docs.models
+package com.prasunmondal.tech4docs.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.Constants
 import com.prasunmondal.tech4docs.Exceptions.PasswordComplexityNotMet
 import com.prasunmondal.tech4docs.R
-import com.prasunmondal.tech4docs.activities.ListRecordTypes
+import com.prasunmondal.tech4docs.models.Vault
 
 class PasswordPage : AppCompatActivity() {
 
@@ -26,7 +26,7 @@ class PasswordPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_password_page)
-        passwordField = findViewById(R.id.password_page_edittext_password)
+        passwordField = findViewById(R.id.configure_recordType_editText_addQues)
         submitButton = findViewById(R.id.password_page_btn_submit)
 
         actionMode = if (Vault.doesAnyVaultExist())
