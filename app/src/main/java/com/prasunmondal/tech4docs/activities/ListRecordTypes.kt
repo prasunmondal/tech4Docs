@@ -81,21 +81,16 @@ class ListRecordTypes : AppCompatActivity() {
         spinner.setTextColor(Color.RED)
     }
 
-    fun onClickCreateDataType(view: View) {
+    fun onClickCreateRecordType(view: View) {
+        // TODO: Check if string is empty
         var name: String = datatypeNameInput.text.toString()
         var dataCollection = Vault.get(this).recordTypes
         var dataTypeCreated = RecordType(name)
         dataCollection.add(dataTypeCreated)
-        displayLines()
-//        goToConfigureActivity(dataTypeCreated)
+        goToConfigureActivity(dataTypeCreated)
     }
 
     fun onClickConfigureDataType(view: View) {
-
-    }
-
-    fun onClickCreateRecordType(view: View) {
-        // TODO: Check if string is empty
 
     }
 

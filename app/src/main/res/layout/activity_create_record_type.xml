@@ -54,7 +54,7 @@
       android:id="@+id/create_data_type_btn_create"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:onClick="onClickCreateDataType"
+      android:onClick="onClickCreateRecordType"
       android:text="Create"
       app:layout_constraintBottom_toBottomOf="@+id/container2"
       app:layout_constraintEnd_toEndOf="parent"
