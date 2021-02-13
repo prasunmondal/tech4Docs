@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tech4Docs">
+        <activity android:name=".activities.DisplayRecordTypeDetails"></activity>
         <activity android:name=".activities.PasswordPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,15 +17,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ListRecordTypes">
-        </activity>
-        <activity android:name=".activities.ConfigureDataType"></activity>
+        <activity android:name=".activities.ListRecordTypes"></activity>
+        <activity android:name=".activities.ConfigureDataType" />
         <activity
             android:name=".activities.ViewCards"
             android:label="@string/title_activity_view_cards"
             android:theme="@style/Theme.Tech4Docs.NoActionBar" />
-        <activity android:name=".activities.ActivityAddCards"></activity>
-        <activity android:name=".activities.MoneyMinded" />
+        <activity android:name=".activities.ActivityAddCards" />
         <activity android:name=".activities.MainActivity" />
     </application>
 

@@ -68,7 +68,7 @@ class Vault: Serializable {
             return instance
         }
 
-        private fun write(context: Context) {
+        fun write(context: Context) {
             IOObjectToFile().WriteObjectToFile(context, Constants.FILENAME_PHONEBOOK, instance)
         }
 

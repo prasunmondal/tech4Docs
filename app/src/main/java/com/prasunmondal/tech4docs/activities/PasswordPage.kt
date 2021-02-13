@@ -36,6 +36,14 @@ class PasswordPage : AppCompatActivity() {
         Toast.makeText(this, "Page Mode: $actionMode", Toast.LENGTH_SHORT).show()
 
         customizeUIOnCreate()
+
+        /*
+             -- dev
+
+         */
+        passwordField.setText("Vault1")
+        createANewVault()
+
     }
 
     fun customizeUIOnCreate() {

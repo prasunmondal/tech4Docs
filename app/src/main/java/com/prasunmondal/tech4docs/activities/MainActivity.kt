@@ -14,8 +14,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goToMoneyMinded(view: View) {
-        val myIntent = Intent(this, MoneyMinded::class.java)
-        this.startActivity(myIntent)
+//        val myIntent = Intent(this, MoneyMinded::class.java)
+//        this.startActivity(myIntent)
 //        sendM()
     }
 

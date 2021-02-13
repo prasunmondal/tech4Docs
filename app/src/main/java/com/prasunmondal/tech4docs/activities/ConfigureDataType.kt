@@ -16,6 +16,7 @@ import com.prasunmondal.tech4docs.enums.AnswerType
 import com.prasunmondal.tech4docs.enums.HideLevel
 import com.prasunmondal.tech4docs.models.Question
 import com.prasunmondal.tech4docs.models.RecordType
+import com.prasunmondal.tech4docs.models.Vault
 
 class ConfigureDataType : AppCompatActivity() {
 
@@ -30,11 +31,6 @@ class ConfigureDataType : AppCompatActivity() {
         populateAnswerTypes()
         fetchReceivedData()
     }
-
-//    private fun populateAnswerTypes() {
-//
-//        answerType.
-//    }
 
     fun populateAnswerTypes() {
         var displayList = arrayListOf<String>()
@@ -54,7 +50,8 @@ class ConfigureDataType : AppCompatActivity() {
     private fun fetchReceivedData() {
         val bundle = intent.extras
         assert(bundle != null)
-        recordType = bundle!!.getSerializable("dataTypeToConfigure") as RecordType
+        var dataTypeID = bundle!!.getString("dataTypeToConfigure")!!
+        recordType = RecordType.getRecordTypeById(this, dataTypeID)
     }
 
     private fun displayLines() {
@@ -95,7 +92,7 @@ class ConfigureDataType : AppCompatActivity() {
             recordType.questions = mutableListOf<Question>() as ArrayList<Question>
         var id = recordType.questions.size.toString()
         recordType.questions.add(Question(id, questionInput.text.toString(), AnswerType.valueOf("STRING"), HideLevel.NO_HIDE, true, id.toInt()))
-
+        Vault.write(this)
         displayLines()
     }
 

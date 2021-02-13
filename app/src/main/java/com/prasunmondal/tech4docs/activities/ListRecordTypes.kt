@@ -5,15 +5,9 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.EditText
-import android.widget.LinearLayout
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.prasunmondal.tech4docs.R
-import com.prasunmondal.tech4docs.models.Question
 import com.prasunmondal.tech4docs.models.RecordType
 import com.prasunmondal.tech4docs.models.Vault
 
@@ -31,6 +25,11 @@ class ListRecordTypes : AppCompatActivity() {
         addDataTypeToSpinner()
 
         displayLines()
+
+        // dev
+        datatypeNameInput.setText("datatype1");
+        createDataType()
+
     }
 
     fun displayLines() {
@@ -39,31 +38,47 @@ class ListRecordTypes : AppCompatActivity() {
         layout.removeAllViews()
 
         Vault.get(this).recordTypes.forEach { c ->
-            addLineInUI(layout, c.name, "")
+            addLineInUI(layout, c)
         }
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun addLineInUI(layout: LinearLayout, title: String, value: String) {
-        var textInputLayout = TextInputLayout(this)
+    private fun addLineInUI(layout: LinearLayout, recordType: RecordType) {
 
-        textInputLayout.hint = title
-        textInputLayout.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
-        textInputLayout.boxStrokeColor = R.color.black
-        textInputLayout.setBoxCornerRadii(5F, 5F, 5F, 5F);
-        textInputLayout.setPadding(0, 40, 0, 10)
+        var horizontalLayout = LinearLayout(this)
+        horizontalLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        horizontalLayout.orientation = LinearLayout.HORIZONTAL
 
-        var edittext = TextInputEditText(this)
-        edittext.setText(title)
-        edittext.setBackgroundColor(R.color.black)
-        edittext.setBackgroundResource(R.color.white)
-        edittext.setPadding(20, 40, 20, 10)
+        var dataTypeName = TextView(this)
+        dataTypeName.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        dataTypeName.text = recordType.name
+        dataTypeName.setPadding(20, 40, 20, 10)
+        dataTypeName.setBackgroundColor(R.color.black)
+        dataTypeName.setBackgroundResource(R.color.white)
+        dataTypeName.setOnClickListener {
+            onClickDataTypeName(recordType)
+        }
 
-        // adding components
-        textInputLayout.addView(edittext)
-        layout.addView(textInputLayout)
+        var editDataType = TextView(this)
+        editDataType.text = "Edit2"
+        editDataType.setPadding(20, 40, 20, 10)
+        editDataType.setBackgroundColor(R.color.black)
+        editDataType.setBackgroundResource(R.color.white)
+        editDataType.setOnClickListener {
+            onClickEditDataType(recordType)
+        }
 
-        edittext.requestFocus()
+        horizontalLayout.addView(dataTypeName)
+        horizontalLayout.addView(editDataType)
+        layout.addView(horizontalLayout)
+    }
+
+    private fun onClickEditDataType(recordType: RecordType) {
+        goToConfigureActivity(recordType)
+    }
+
+    private fun onClickDataTypeName(recordType: RecordType) {
+        goToViewRecordTypeRecords(recordType)
     }
 
     private fun initiallizeUI() {
@@ -84,6 +99,10 @@ class ListRecordTypes : AppCompatActivity() {
 
     fun onClickCreateRecordType(view: View) {
         // TODO: Check if string is empty
+        createDataType()
+    }
+
+    fun createDataType() {
         var name: String = datatypeNameInput.text.toString()
         var dataCollection = Vault.get(this).recordTypes
         var dataTypeCreated = RecordType(name)
@@ -93,6 +112,14 @@ class ListRecordTypes : AppCompatActivity() {
         goToConfigureActivity(dataTypeCreated)
     }
 
+    private fun goToViewRecordTypeRecords(recordType: RecordType) {
+        val myIntent = Intent(this, DisplayRecordTypeDetails::class.java)
+        val bundle = Bundle()
+        bundle.putString("dataTypeToConfigure", recordType.name)
+        myIntent.putExtras(bundle)
+        this.startActivity(myIntent)
+    }
+
     fun onClickConfigureDataType(view: View) {
 
     }
@@ -100,7 +127,7 @@ class ListRecordTypes : AppCompatActivity() {
     private fun goToConfigureActivity(recordType: RecordType) {
         val myIntent = Intent(this, ConfigureDataType::class.java)
         val bundle = Bundle()
-        bundle.putSerializable("dataTypeToConfigure", recordType)
+        bundle.putString("dataTypeToConfigure", recordType.name)
         myIntent.putExtras(bundle)
         this.startActivity(myIntent)
     }

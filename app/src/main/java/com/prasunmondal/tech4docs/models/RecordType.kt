@@ -1,5 +1,6 @@
 package com.prasunmondal.tech4docs.models
 
+import android.content.Context
 import com.prasunmondal.tech4docs.xModels.AttributeMetadata
 import java.io.Serializable
 
@@ -19,4 +20,13 @@ class RecordType: Serializable {
     }
 
 //    var attributes = mutableListOf<AttributeMetadata>()
+    companion object {
+        fun getRecordTypeById(context: Context, id: String): RecordType {
+            Vault.get(context).recordTypes.forEach {c ->
+                if (id == c.name)
+                    return c
+            }
+            return null!!
+        }
+    }
 }
