@@ -1,6 +1,7 @@
 package com.prasunmondal.tech4docs.activities
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.prasunmondal.tech4docs.R
@@ -76,18 +78,21 @@ class ConfigureDataType : AppCompatActivity() {
         textInputLayout.setBoxBackgroundColorResource(R.color.black)
         textInputLayout.setBoxCornerRadii(5F, 5F, 5F, 5F);
         textInputLayout.setPadding(0, 40, 0, 10)
-        textInputLayout.setBackgroundResource(R.drawable.edit_text_layout)
+
 
         var edittext = TextInputEditText(this)
         edittext.setText(value)
 //        edittext.setBackgroundColor(R.color.black)
 //        edittext.setBackgroundResource(R.color.white)
         edittext.setPadding(20, 40, 20, 10)
-//        edittext.setBackgroundColor(R.color.black)
+        edittext.setBackgroundColor(R.color.black)
         edittext.setBackgroundResource(R.color.black)
-        edittext.setTextColor(R.color.white)
-        edittext.setHintTextColor(R.color.white)
+        edittext.setTextColor(R.color.black)
+        edittext.setHintTextColor(R.color.black)
+        edittext.setTextColor(ContextCompat.getColor(this, R.color.black))
+//        edittext.setBackgroundColor()
 
+        edittext.setBackgroundResource(R.drawable.edit_text_layout)
 
         // adding components
         textInputLayout.addView(edittext)
