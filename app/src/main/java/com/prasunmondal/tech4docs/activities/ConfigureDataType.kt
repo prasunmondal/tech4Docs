@@ -71,14 +71,23 @@ class ConfigureDataType : AppCompatActivity() {
         textInputLayout.hint = title
         textInputLayout.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
         textInputLayout.boxStrokeColor = R.color.black
+        textInputLayout.boxBackgroundColor = R.color.black
+        textInputLayout.boxStrokeWidth = 2
+        textInputLayout.setBoxBackgroundColorResource(R.color.black)
         textInputLayout.setBoxCornerRadii(5F, 5F, 5F, 5F);
         textInputLayout.setPadding(0, 40, 0, 10)
+        textInputLayout.setBackgroundResource(R.drawable.edit_text_layout)
 
         var edittext = TextInputEditText(this)
         edittext.setText(value)
-        edittext.setBackgroundColor(R.color.black)
-        edittext.setBackgroundResource(R.color.white)
+//        edittext.setBackgroundColor(R.color.black)
+//        edittext.setBackgroundResource(R.color.white)
         edittext.setPadding(20, 40, 20, 10)
+//        edittext.setBackgroundColor(R.color.black)
+        edittext.setBackgroundResource(R.color.black)
+        edittext.setTextColor(R.color.white)
+        edittext.setHintTextColor(R.color.white)
+
 
         // adding components
         textInputLayout.addView(edittext)
