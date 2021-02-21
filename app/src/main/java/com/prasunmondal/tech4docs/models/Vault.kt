@@ -10,6 +10,7 @@ import com.prasunmondal.tech4docs.IOObjectToFile
 import com.prasunmondal.tech4docs.Constants
 import com.prasunmondal.tech4docs.Exceptions.PasswordComplexityNotMet
 import com.prasunmondal.tech4docs.utils.Applog
+import com.prasunmondal.tech4docs.utils.DEncryption
 import java.io.Serializable
 import java.lang.Exception
 
@@ -56,6 +57,15 @@ class Vault: Serializable {
 
         private fun verifyVault(password: String): Boolean {
             // TODO: implement logic to verify the correctness of password
+            // decrypt the vault and store in a different file
+            // read the file and typecast to vault
+            // if successful - true
+            // else - false
+
+            var vaultString = ""
+            DEncryption.decrypt(vaultString, password)
+
+
             return true
         }
 
