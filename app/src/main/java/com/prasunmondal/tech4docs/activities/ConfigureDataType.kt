@@ -1,16 +1,15 @@
 package com.prasunmondal.tech4docs.activities
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.view.ContextThemeWrapper
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.EditText
+import android.widget.*
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.prasunmondal.tech4docs.R
@@ -19,6 +18,7 @@ import com.prasunmondal.tech4docs.enums.HideLevel
 import com.prasunmondal.tech4docs.models.Question
 import com.prasunmondal.tech4docs.models.RecordType
 import com.prasunmondal.tech4docs.models.Vault
+
 
 class ConfigureDataType : AppCompatActivity() {
 
@@ -32,6 +32,16 @@ class ConfigureDataType : AppCompatActivity() {
         initiallizeUIElements()
         populateAnswerTypes()
         fetchReceivedData()
+        addAEditBox()
+    }
+
+    private fun addAEditBox() {
+        var layout = findViewById<LinearLayout>(R.id.create_data_type_dataRowsContainer)
+        val childView: TextInputLayout
+        val inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+//        childView = inflater.inflate(R.layout.edit_layout2, null)
+//        layout.addView(childView)
+//        layout.addView(childView)
     }
 
     fun populateAnswerTypes() {
@@ -68,31 +78,30 @@ class ConfigureDataType : AppCompatActivity() {
 
     @SuppressLint("ResourceAsColor")
     private fun addLineInUI(layout: LinearLayout, title: String, value: String) {
-        var textInputLayout = TextInputLayout(this)
-
+        var textInputLayout = TextInputLayout(ContextThemeWrapper(this, R.style.Widget_MaterialComponents_TextInputLayout_OutlinedBox))
         textInputLayout.hint = title
-        textInputLayout.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
+        val lpq = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        textInputLayout.layoutParams = lpq
         textInputLayout.boxStrokeColor = R.color.black
-        textInputLayout.boxBackgroundColor = R.color.black
-        textInputLayout.boxStrokeWidth = 2
-        textInputLayout.setBoxBackgroundColorResource(R.color.black)
-        textInputLayout.setBoxCornerRadii(5F, 5F, 5F, 5F);
-        textInputLayout.setPadding(0, 40, 0, 10)
-
 
         var edittext = TextInputEditText(this)
         edittext.setText(value)
+        val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        lp.topMargin = 20
+        lp.height = 480
+        edittext.layoutParams = lp
+//        edittext.apply {
+//            boxStrokeColor =
+//        }
+//        edittext.marginTop = 20
 //        edittext.setBackgroundColor(R.color.black)
-//        edittext.setBackgroundResource(R.color.white)
-        edittext.setPadding(20, 40, 20, 10)
-        edittext.setBackgroundColor(R.color.black)
-        edittext.setBackgroundResource(R.color.black)
-        edittext.setTextColor(R.color.black)
-        edittext.setHintTextColor(R.color.black)
-        edittext.setTextColor(ContextCompat.getColor(this, R.color.black))
+//        edittext.setBackgroundResource(R.color.black)
+//        edittext.setTextColor(R.color.black)
+//        edittext.setHintTextColor(R.color.black)
+//        edittext.setTextColor(ContextCompat.getColor(this, R.color.black))
 //        edittext.setBackgroundColor()
 
-        edittext.setBackgroundResource(R.drawable.edit_text_layout)
+//        textInputLayout.setBackgroundResource(R.drawable.edit_text_layout)
 
         // adding components
         textInputLayout.addView(edittext)

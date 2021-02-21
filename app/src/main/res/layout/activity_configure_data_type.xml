@@ -58,8 +58,9 @@
 
         <AutoCompleteTextView
             android:id="@+id/configure_recordType_editText_addAnswerType"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
