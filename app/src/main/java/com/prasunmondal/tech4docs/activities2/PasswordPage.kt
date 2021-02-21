@@ -9,10 +9,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.Constants
 import com.prasunmondal.tech4docs.Exceptions.PasswordComplexityNotMet
+import com.prasunmondal.tech4docs.IOObjectToFile
 import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.activities.ListRecordTypes
 import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.utils.Applog
+import com.prasunmondal.tech4docs.utils.Bytes
 
 class PasswordPage : AppCompatActivity() {
 
@@ -31,15 +33,34 @@ class PasswordPage : AppCompatActivity() {
         passwordField = findViewById(R.id.configure_recordType_editText_addQues)
         submitButton = findViewById(R.id.password_page_btn_submit)
 
-        val doesVaultExist = Vault.doesAnyVaultExist(this)
-        Applog.info("doesVaultExist","$doesVaultExist", Throwable())
+        var bytesTest: ByteArray = byteArrayOf(1,2,3,4,5,6,7,8)
+        Applog.info("bytesTest:", Bytes.printBytes(bytesTest), Throwable())
+//        bytesTest[0] = "1".toByte()
+//        bytesTest[1] = "2".toByte()
+//        bytesTest[2] = "3".toByte()
+//        bytesTest[3] = "4".toByte()
+//        bytesTest[4] = "5".toByte()
+//        bytesTest[5] = "6".toByte()
+//        bytesTest[6] = "7".toByte()
 
-        actionMode = if (doesVaultExist)
-            ActionMode.OPEN_VAULT
-        else
-            ActionMode.CREATE_VAULT
-        Applog.info("actionMode","$actionMode", Throwable())
-        customizeUIOnCreate()
+        IOObjectToFile().WriteBytesToFile(this, "test", bytesTest)
+        var bytesTest2: ByteArray = IOObjectToFile().ReadBytesFromFile(this, "test")
+
+        Applog.info("TestBytesWrite:", bytesTest, Throwable())
+        Applog.info("TestBytesRead:", bytesTest2, Throwable())
+        Applog.info("bytesTest2:", Bytes.printBytes(bytesTest2), Throwable())
+
+
+//        val doesVaultExist = Vault.doesAnyVaultExist(this)
+//        Applog.info("doesVaultExist","$doesVaultExist", Throwable())
+
+//        actionMode = if (doesVaultExist)
+//            ActionMode.OPEN_VAULT
+//        else
+//            ActionMode.CREATE_VAULT
+//
+//        Applog.info("actionMode","$actionMode", Throwable())
+//        customizeUIOnCreate()
 
         /*
              -- dev
