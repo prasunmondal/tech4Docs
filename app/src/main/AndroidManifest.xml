@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.DisplayRecordTypeDetails" />
-        <activity android:name=".activities.PasswordPage">
+        <activity android:name=".activities2.PasswordPage">
         </activity>
         <activity android:name=".activities.ListRecordTypes" />
         <activity android:name=".activities.ConfigureDataType" />

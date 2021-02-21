@@ -5,17 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.prasunmondal.tech4docs.R
-import com.prasunmondal.tech4docs.activities.DisplayRecordTypeDetails
-import com.prasunmondal.tech4docs.activities.PasswordPage
 
 class SplashScreen : AppCompatActivity() {
+
+    private val splashScreeDelayInMs: Long = 1500
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
         Handler().postDelayed({
             goToPasswordPage()
-        },  R.string.splash_show_time_ms.toLong())
+        },  splashScreeDelayInMs)
     }
 
     private fun goToPasswordPage() {

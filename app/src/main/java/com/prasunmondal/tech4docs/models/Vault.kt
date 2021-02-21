@@ -1,6 +1,7 @@
 package com.prasunmondal.tech4docs.models
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import com.prasunmondal.tech4docs.Exceptions.NoVaultException
 import com.prasunmondal.tech4docs.Exceptions.VaultNotLoaded
@@ -8,7 +9,9 @@ import com.prasunmondal.tech4docs.Exceptions.VaultVerificationError
 import com.prasunmondal.tech4docs.IOObjectToFile
 import com.prasunmondal.tech4docs.Constants
 import com.prasunmondal.tech4docs.Exceptions.PasswordComplexityNotMet
+import com.prasunmondal.tech4docs.utils.Applog
 import java.io.Serializable
+import java.lang.Exception
 
 class Vault: Serializable {
     var recordTypes: ArrayList<RecordType>
@@ -17,8 +20,6 @@ class Vault: Serializable {
     private constructor(context: Context, password: String) {
         this.password = password
         this.recordTypes = mutableListOf<RecordType>() as ArrayList<RecordType>
-
-        write(context)
     }
 
     companion object {
@@ -33,6 +34,7 @@ class Vault: Serializable {
             if(isValidCreationPassword(password)) {
                 if(instance == null)
                     instance = Vault(context, password)
+                write(context)
                 return instance!!
             }
             throw PasswordComplexityNotMet()
@@ -57,8 +59,15 @@ class Vault: Serializable {
             return true
         }
 
-        fun doesAnyVaultExist(): Boolean {
-            // TODO: implement logic to check if any vault exist in memory
+        fun doesAnyVaultExist(context: Context): Boolean {
+            try {
+                if(IOObjectToFile().ReadObjectFromFile(context, Constants.FILENAME_PHONEBOOK) as Vault != null)
+                {
+                    Applog.info("return","true", Throwable())
+                    return true
+                }
+            } catch (e: Exception) {}
+            Applog.info("return","false", Throwable())
             return false
         }
 
@@ -70,6 +79,7 @@ class Vault: Serializable {
 
         fun write(context: Context) {
             IOObjectToFile().WriteObjectToFile(context, Constants.FILENAME_PHONEBOOK, instance)
+            Applog.info("status","Write Complete!", Throwable())
         }
 
         private fun isValidCreationPassword(password: String): Boolean {

@@ -1,4 +1,4 @@
-package com.prasunmondal.tech4docs.activities
+package com.prasunmondal.tech4docs.activities2
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.Constants
 import com.prasunmondal.tech4docs.Exceptions.PasswordComplexityNotMet
 import com.prasunmondal.tech4docs.R
+import com.prasunmondal.tech4docs.activities.ListRecordTypes
 import com.prasunmondal.tech4docs.models.Vault
+import com.prasunmondal.tech4docs.utils.Applog
 
 class PasswordPage : AppCompatActivity() {
 
@@ -29,20 +31,21 @@ class PasswordPage : AppCompatActivity() {
         passwordField = findViewById(R.id.configure_recordType_editText_addQues)
         submitButton = findViewById(R.id.password_page_btn_submit)
 
-        actionMode = if (Vault.doesAnyVaultExist())
+        val doesVaultExist = Vault.doesAnyVaultExist(this)
+        Applog.info("doesVaultExist","$doesVaultExist", Throwable())
+
+        actionMode = if (doesVaultExist)
             ActionMode.OPEN_VAULT
         else
             ActionMode.CREATE_VAULT
-        Toast.makeText(this, "Page Mode: $actionMode", Toast.LENGTH_SHORT).show()
-
+        Applog.info("actionMode","$actionMode", Throwable())
         customizeUIOnCreate()
 
         /*
              -- dev
-
          */
-        passwordField.setText("Vault1")
-        createANewVault()
+//        passwordField.setText("Vault1")
+//        createANewVault()
 
     }
 
@@ -53,7 +56,6 @@ class PasswordPage : AppCompatActivity() {
             ActionMode.OPEN_VAULT ->
                 submitButton.text = "OPEN VAULT"
         }
-
     }
 
     fun onClickPasswordSubmitButton(view: View) {
