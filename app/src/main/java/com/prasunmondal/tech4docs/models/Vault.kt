@@ -4,14 +4,12 @@ import android.content.Context
 import com.prasunmondal.tech4docs.Exceptions.NoVaultException
 import com.prasunmondal.tech4docs.Exceptions.VaultNotLoaded
 import com.prasunmondal.tech4docs.Exceptions.VaultVerificationError
-import com.prasunmondal.tech4docs.IOObjectToFile
+import com.prasunmondal.tech4docs.IOToFile
 import com.prasunmondal.tech4docs.Constants
 import com.prasunmondal.tech4docs.Exceptions.PasswordComplexityNotMet
 import com.prasunmondal.tech4docs.utils.Applog
 import com.prasunmondal.tech4docs.utils.DEncryption
 import java.io.*
-import java.lang.Exception
-import javax.crypto.spec.SecretKeySpec
 
 class Vault: Serializable {
     var recordTypes: ArrayList<RecordType>
@@ -88,7 +86,7 @@ class Vault: Serializable {
 
         private fun read(context: Context): Vault? {
             // read
-            var byteArray = IOObjectToFile().ReadBytesFromFile(context, Constants.FILENAME_PHONEBOOK)
+            var byteArray = IOToFile().ReadBytesFromFile(context, Constants.FILENAME_PHONEBOOK)
             Applog.info("byteArray", byteArray, Throwable())
             if(byteArray == null) {
                 throw NoVaultException()
@@ -101,7 +99,7 @@ class Vault: Serializable {
 
         fun write(context: Context) {
             Applog.info("Start file write", Throwable())
-            IOObjectToFile().WriteBytesToFile(context,
+            IOToFile().WriteBytesToFile(context,
                     Constants.FILENAME_PHONEBOOK,
                     DEncryption.encodeFile("testKey", DEncryption.serialize(instance)))
             Applog.info("Write Status", "Done!", Throwable())

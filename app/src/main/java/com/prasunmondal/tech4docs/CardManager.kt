@@ -14,7 +14,7 @@ class CardManager: Serializable {
     var cardsList: ArrayList<Cards> = arrayListOf()
 
     fun read(context: Context) {
-        var ioObject = IOObjectToFile()
+        var ioObject = IOToFile()
         try {
             cardsList = ioObject.ReadObjectFromFile(
                 context,
@@ -28,7 +28,7 @@ class CardManager: Serializable {
 
     fun write(context: Context) {
         try {
-            var ioObject = IOObjectToFile()
+            var ioObject = IOToFile()
             ioObject.WriteObjectToFile(context, Constants.FILENAME_PHONEBOOK, cardsList)
             Log.e("AppLog", "Data Written Successfully.. in CardManager.read")
             Log.e("AppLog", cardsList.toString())
