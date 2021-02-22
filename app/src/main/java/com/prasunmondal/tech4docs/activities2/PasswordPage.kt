@@ -9,12 +9,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.Constants
 import com.prasunmondal.tech4docs.Exceptions.PasswordComplexityNotMet
-import com.prasunmondal.tech4docs.IOObjectToFile
+import com.prasunmondal.tech4docs.IOToFile
 import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.activities.ListRecordTypes
 import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.utils.Applog
 import com.prasunmondal.tech4docs.utils.Bytes
+import com.prasunmondal.tech4docs.utils.DEncryption
 
 class PasswordPage : AppCompatActivity() {
 
@@ -33,8 +34,8 @@ class PasswordPage : AppCompatActivity() {
         passwordField = findViewById(R.id.configure_recordType_editText_addQues)
         submitButton = findViewById(R.id.password_page_btn_submit)
 
-        var bytesTest: ByteArray = byteArrayOf(1,2,3,4,5,6,7,8)
-        Applog.info("bytesTest:", Bytes.printBytes(bytesTest), Throwable())
+
+//        Applog.info("bytesTest:", Bytes.printBytes(beforeEncoding), Throwable())
 //        bytesTest[0] = "1".toByte()
 //        bytesTest[1] = "2".toByte()
 //        bytesTest[2] = "3".toByte()
@@ -43,12 +44,39 @@ class PasswordPage : AppCompatActivity() {
 //        bytesTest[5] = "6".toByte()
 //        bytesTest[6] = "7".toByte()
 
-        IOObjectToFile().WriteBytesToFile(this, "test", bytesTest)
-        var bytesTest2: ByteArray = IOObjectToFile().ReadBytesFromFile(this, "test")
+//        String key =
+//        -84,-19,0,5,119,16
+//        -84,-19,0,5,119,16
+//        -84,-19,0,5,119,16
+//        -84,-19,0,5,119,16
 
-        Applog.info("TestBytesWrite:", bytesTest, Throwable())
-        Applog.info("TestBytesRead:", bytesTest2, Throwable())
-        Applog.info("bytesTest2:", Bytes.printBytes(bytesTest2), Throwable())
+//        beforeEncoding =
+
+
+
+
+
+
+
+
+        val key = "passwordpasswordpassword"
+        val filename = "testetst"
+
+        var beforeEncoding: ByteArray = byteArrayOf(1,1,1,1,1,1,1)
+        Applog.info("Before Encoding (${beforeEncoding.size})", Bytes.printBytes(beforeEncoding), Throwable())
+        var afterEncoding: ByteArray = DEncryption.encodeFile(key, beforeEncoding)!!
+        Applog.info("After Encoding (${afterEncoding.size})", Bytes.printBytes(afterEncoding), Throwable())
+        var padded = byteArrayOf(7,7,2,7,8,6,1,6,6,6,3,2,5) + afterEncoding
+        Applog.info("After padding (${padded.size})", Bytes.printBytes(padded), Throwable())
+
+        IOToFile().WriteBytesToFile(this, filename, padded)
+
+        var beforeDecoding = IOToFile().ReadBytesFromFile(this, filename)
+        Applog.info("Before Decoding (${beforeDecoding.size})", Bytes.printBytes(beforeDecoding), Throwable())
+        var removePadding = DEncryption.removePaddingBytes(beforeDecoding)
+        Applog.info("Remove Padding (${removePadding.size})", Bytes.printBytes(removePadding), Throwable())
+        var afterDecoding = DEncryption.decodeFile(key, removePadding)!!
+        Applog.info("After Decoding (${afterDecoding.size})", Bytes.printBytes(afterDecoding), Throwable())
 
 
 //        val doesVaultExist = Vault.doesAnyVaultExist(this)

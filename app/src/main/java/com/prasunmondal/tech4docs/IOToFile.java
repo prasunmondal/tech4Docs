@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class IOObjectToFile {
+public class IOToFile {
 
 
 
@@ -59,10 +59,9 @@ public class IOObjectToFile {
             }
             return bytes;
         } catch (Exception e) {
-            Applog.Companion.error("Error while reading bytes from file", new Throwable());
-            Applog.Companion.error("Parameters", new Throwable());
-            Applog.Companion.error("context", context, new Throwable());
-            Applog.Companion.error("fileName", fileName, new Throwable());
+            Applog.Companion.error("Error while reading bytes from file", e, new Throwable());
+            Applog.Companion.error("Parameter: context", context, new Throwable());
+            Applog.Companion.error("Parameter: fileName", fileName, new Throwable());
             throw e;
         }
     }

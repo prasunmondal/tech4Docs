@@ -3,6 +3,7 @@ package com.prasunmondal.tech4docs.utils
 import java.io.*
 import java.security.Provider
 import java.security.SecureRandom
+import java.util.stream.IntStream
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.spec.SecretKeySpec
@@ -27,13 +28,15 @@ class DEncryption {
 
         @Throws(Exception::class)
         fun generateKey(password: String): ByteArray? {
+            Applog.info("password", password, Throwable())
             val keyStart = password.toByteArray(charset("UTF-8"))
             val kgen = KeyGenerator.getInstance("AES")
             val sr: SecureRandom = SecureRandom.getInstance("SHA1PRNG")
             sr.setSeed(keyStart)
             kgen.init(128, sr)
             val skey = kgen.generateKey()
-            return skey.encoded
+            Applog.info("skey.encoded", skey.encoded, Throwable())
+            return keyStart
         }
 
         @Throws(IOException::class)
@@ -54,6 +57,7 @@ class DEncryption {
         @Throws(Exception::class)
         fun encodeFile(key: String, fileData: ByteArray?): ByteArray? {
             val generatedKey = generateKey(key)
+            Applog.info("generatedKey", Bytes.printBytes(generatedKey), Throwable())
             val skeySpec = SecretKeySpec(generatedKey, "AES")
             val cipher = Cipher.getInstance("AES")
             cipher.init(Cipher.ENCRYPT_MODE, skeySpec)
@@ -63,10 +67,26 @@ class DEncryption {
         @Throws(Exception::class)
         fun decodeFile(key: String, fileData: ByteArray?): ByteArray? {
             val generatedKey = generateKey(key)
+            Applog.info("generatedKey", Bytes.printBytes(generatedKey), Throwable())
             val skeySpec = SecretKeySpec(generatedKey, "AES")
             val cipher = Cipher.getInstance("AES")
             cipher.init(Cipher.DECRYPT_MODE, skeySpec)
             return cipher.doFinal(fileData)
+        }
+
+        fun paddingEndPosition(bytes: ByteArray): Int {
+            return 18
+        }
+
+        fun removePaddingBytes(bytes: ByteArray): ByteArray {
+            var dataStartPos = paddingEndPosition(bytes) + 1
+            var dataLength = bytes.size - dataStartPos
+            var beforeEncoding = ByteArray(dataLength)
+
+            for (i in dataStartPos until bytes.size) {
+                beforeEncoding[i-dataStartPos] = bytes[i]
+            }
+            return beforeEncoding
         }
     }
 }
