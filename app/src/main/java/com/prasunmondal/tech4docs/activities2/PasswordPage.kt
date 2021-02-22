@@ -9,13 +9,22 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.Constants
 import com.prasunmondal.tech4docs.Exceptions.PasswordComplexityNotMet
-import com.prasunmondal.tech4docs.IOToFile
+import com.prasunmondal.tech4docs.utils.FileIO
 import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.activities.ListRecordTypes
 import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.utils.Applog
 import com.prasunmondal.tech4docs.utils.Bytes
 import com.prasunmondal.tech4docs.utils.DEncryption
+import java.io.Serializable
+
+class Test2: Serializable {
+    var l = 90;
+
+    override fun toString(): String {
+        return "l: $l"
+    }
+}
 
 class PasswordPage : AppCompatActivity() {
 
@@ -62,39 +71,40 @@ class PasswordPage : AppCompatActivity() {
         val key = "passwordpasswordpassword"
         val filename = "testetst"
 
-        var beforeEncoding: ByteArray = byteArrayOf(1,1,1,1,1,1,1)
-        Applog.info("Before Encoding (${beforeEncoding.size})", Bytes.printBytes(beforeEncoding), Throwable())
-        var afterEncoding: ByteArray = DEncryption.encodeFile(key, beforeEncoding)!!
-        Applog.info("After Encoding (${afterEncoding.size})", Bytes.printBytes(afterEncoding), Throwable())
-        var padded = byteArrayOf(7,7,2,7,8,6,1,6,6,6,3,2,5) + afterEncoding
-        Applog.info("After padding (${padded.size})", Bytes.printBytes(padded), Throwable())
 
-        IOToFile().WriteBytesToFile(this, filename, padded)
-
-        var beforeDecoding = IOToFile().ReadBytesFromFile(this, filename)
-        Applog.info("Before Decoding (${beforeDecoding.size})", Bytes.printBytes(beforeDecoding), Throwable())
-        var removePadding = DEncryption.removePaddingBytes(beforeDecoding)
-        Applog.info("Remove Padding (${removePadding.size})", Bytes.printBytes(removePadding), Throwable())
-        var afterDecoding = DEncryption.decodeFile(key, removePadding)!!
-        Applog.info("After Decoding (${afterDecoding.size})", Bytes.printBytes(afterDecoding), Throwable())
+        var obj = Test2()
 
 
-//        val doesVaultExist = Vault.doesAnyVaultExist(this)
-//        Applog.info("doesVaultExist","$doesVaultExist", Throwable())
+//        FileIO().WriteBytesToFile(this, filename, padded)
 
-//        actionMode = if (doesVaultExist)
-//            ActionMode.OPEN_VAULT
-//        else
-//            ActionMode.CREATE_VAULT
+//        var d = FileIO().ReadBytesFromFile(this, filename)
+
 //
-//        Applog.info("actionMode","$actionMode", Throwable())
-//        customizeUIOnCreate()
+//        Applog.info("Before Encoding (${beforeEncoding.size})", beforeEncoding, Throwable())
+//        Applog.info("After Encoding (${afterEncoding.size})", afterEncoding, Throwable())
+//        Applog.info("After padding (${padded.size})", padded, Throwable())
+//        Applog.info("Before Decoding (${beforeDecoding.size})", beforeDecoding, Throwable())
+//        Applog.info("Remove Padding (${removePadding.size})", removePadding, Throwable())
+//        Applog.info("After Decoding (${afterDecoding.size})", afterDecoding, Throwable())
+//        Applog.info("objectRead", objectRead, Throwable())
+
+
+        val doesVaultExist = Vault.doesAnyVaultExist(this)
+        Applog.info("doesVaultExist","$doesVaultExist", Throwable())
+
+        actionMode = if (doesVaultExist)
+            ActionMode.OPEN_VAULT
+        else
+            ActionMode.CREATE_VAULT
+
+        Applog.info("actionMode","$actionMode", Throwable())
+        customizeUIOnCreate()
 
         /*
              -- dev
          */
-//        passwordField.setText("Vault1")
-//        createANewVault()
+        passwordField.setText("Vault1")
+        createANewVault()
 
     }
 

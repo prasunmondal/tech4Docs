@@ -4,12 +4,13 @@ import android.content.Context
 import com.prasunmondal.tech4docs.Exceptions.NoVaultException
 import com.prasunmondal.tech4docs.Exceptions.VaultNotLoaded
 import com.prasunmondal.tech4docs.Exceptions.VaultVerificationError
-import com.prasunmondal.tech4docs.IOToFile
+import com.prasunmondal.tech4docs.utils.FileIO
 import com.prasunmondal.tech4docs.Constants
 import com.prasunmondal.tech4docs.Exceptions.PasswordComplexityNotMet
 import com.prasunmondal.tech4docs.utils.Applog
 import com.prasunmondal.tech4docs.utils.DEncryption
 import java.io.*
+import java.lang.Exception
 
 class Vault: Serializable {
     var recordTypes: ArrayList<RecordType>
@@ -32,7 +33,7 @@ class Vault: Serializable {
             if(isValidCreationPassword(password)) {
                 if(instance == null)
                     instance = Vault(context, password)
-                write(context)
+                write(context, Constants.PASSWORD)
                 return instance!!
             }
             throw PasswordComplexityNotMet()
@@ -40,7 +41,7 @@ class Vault: Serializable {
 
         fun load(context: Context, password: String): Vault {
             if(instance == null)
-                instance = read(context)
+                instance = read(context, password)
 
             if(instance == null)
                 throw NoVaultException()
@@ -71,38 +72,30 @@ class Vault: Serializable {
         }
 
         fun doesAnyVaultExist(context: Context): Boolean {
-//            return false
-//            read(context)
             try {
-//                if(IOObjectToFile().ReadObjectFromFile(context, Constants.FILENAME_PHONEBOOK) as Vault != null)
-                read(context)
-                Applog.info("return","true", Throwable())
+                FileIO().ReadBytesFromFile(context, Constants.FILENAME_PHONEBOOK)
+                Applog.info("return",true, Throwable())
                 return true
-            } catch (e: NoVaultException) {
-                Applog.info("return","false", Throwable())
+            } catch (e: Exception) {
             }
+            Applog.info("return", false, Throwable())
             return false
         }
 
-        private fun read(context: Context): Vault? {
-            // read
-            var byteArray = IOToFile().ReadBytesFromFile(context, Constants.FILENAME_PHONEBOOK)
-            Applog.info("byteArray", byteArray, Throwable())
-            if(byteArray == null) {
-                throw NoVaultException()
-            }
-
-            // decrypt
-            var vault = DEncryption.deserialize(byteArray) as Vault
+        private fun read(context: Context, key: String): Vault? {
+            var beforeDecoding = FileIO().ReadBytesFromFile(context, Constants.FILENAME_PHONEBOOK)
+            var removePadding = DEncryption.removePadding(beforeDecoding)
+            var afterDecoding = DEncryption.decodeFile(removePadding, key)!!
+            var vault = DEncryption.byteArrayToObject(afterDecoding) as Vault
             return vault
         }
 
-        fun write(context: Context) {
+        fun write(context: Context, key: String) {
             Applog.info("Start file write", Throwable())
-            IOToFile().WriteBytesToFile(context,
-                    Constants.FILENAME_PHONEBOOK,
-                    DEncryption.encodeFile("testKey", DEncryption.serialize(instance)))
-            Applog.info("Write Status", "Done!", Throwable())
+            var beforeEncoding: ByteArray = DEncryption.objectToByteArray(instance)
+            var afterEncoding: ByteArray = DEncryption.encodeFile(beforeEncoding, key)!!
+            var padded = DEncryption.addPadding(afterEncoding)
+            FileIO().WriteBytesToFile(context, Constants.FILENAME_PHONEBOOK, padded)
         }
 
         private fun isValidCreationPassword(password: String): Boolean {

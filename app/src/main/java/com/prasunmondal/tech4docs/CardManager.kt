@@ -2,6 +2,7 @@ package com.prasunmondal.tech4docs
 
 import android.content.Context
 import android.util.Log
+import com.prasunmondal.tech4docs.utils.FileIO
 import com.prasunmondal.tech4docs.xModels.Cards
 import java.io.Serializable
 import java.lang.Exception
@@ -14,7 +15,7 @@ class CardManager: Serializable {
     var cardsList: ArrayList<Cards> = arrayListOf()
 
     fun read(context: Context) {
-        var ioObject = IOToFile()
+        var ioObject = FileIO()
         try {
             cardsList = ioObject.ReadObjectFromFile(
                 context,
@@ -28,7 +29,7 @@ class CardManager: Serializable {
 
     fun write(context: Context) {
         try {
-            var ioObject = IOToFile()
+            var ioObject = FileIO()
             ioObject.WriteObjectToFile(context, Constants.FILENAME_PHONEBOOK, cardsList)
             Log.e("AppLog", "Data Written Successfully.. in CardManager.read")
             Log.e("AppLog", cardsList.toString())

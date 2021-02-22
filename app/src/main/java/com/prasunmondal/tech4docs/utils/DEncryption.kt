@@ -1,16 +1,10 @@
 package com.prasunmondal.tech4docs.utils
 
 import java.io.*
-import java.security.Provider
 import java.security.SecureRandom
-import java.util.stream.IntStream
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.spec.SecretKeySpec
-
-
-
-
 
 // https://stackoverflow.com/questions/16950833/is-there-an-easy-way-to-encrypt-a-java-object
 // https://stackoverflow.com/questions/4275311/how-to-encrypt-and-decrypt-file-in-android/8041442
@@ -19,12 +13,7 @@ import javax.crypto.spec.SecretKeySpec
 class DEncryption {
     companion object {
 
-        class CryptoProvider : Provider("Crypto", 1.0, "HARMONY (SHA1 digest; SecureRandom; SHA1withDSA signature)") {
-            init {
-                put("SecureRandom.SHA1PRNG", "org.apache.harmony.security.provider.crypto.SHA1PRNG_SecureRandomImpl")
-                put("SecureRandom.SHA1PRNG ImplementedIn", "Software")
-            }
-        }
+        var paddingArray: ByteArray = byteArrayOf(7,1,2,7,8,6,1,6,6,6,3,2,5,7,1,2,7,8,6,1,6,6,6,3,2,5)
 
         @Throws(Exception::class)
         fun generateKey(password: String): ByteArray? {
@@ -40,7 +29,7 @@ class DEncryption {
         }
 
         @Throws(IOException::class)
-        fun serialize(obj: Any?): ByteArray? {
+        fun objectToByteArray(obj: Any?): ByteArray {
             val out = ByteArrayOutputStream()
             val os = ObjectOutputStream(out)
             os.writeObject(obj)
@@ -48,14 +37,14 @@ class DEncryption {
         }
 
         @Throws(IOException::class, ClassNotFoundException::class)
-        fun deserialize(data: ByteArray): Any? {
+        fun byteArrayToObject(data: ByteArray): Any {
             val in1 = ByteArrayInputStream(data)
             val is1 = ObjectInputStream(in1)
             return is1.readObject()
         }
 
         @Throws(Exception::class)
-        fun encodeFile(key: String, fileData: ByteArray?): ByteArray? {
+        fun encodeFile(fileData: ByteArray, key: String): ByteArray? {
             val generatedKey = generateKey(key)
             Applog.info("generatedKey", Bytes.printBytes(generatedKey), Throwable())
             val skeySpec = SecretKeySpec(generatedKey, "AES")
@@ -65,7 +54,7 @@ class DEncryption {
         }
 
         @Throws(Exception::class)
-        fun decodeFile(key: String, fileData: ByteArray?): ByteArray? {
+        fun decodeFile(fileData: ByteArray, key: String): ByteArray? {
             val generatedKey = generateKey(key)
             Applog.info("generatedKey", Bytes.printBytes(generatedKey), Throwable())
             val skeySpec = SecretKeySpec(generatedKey, "AES")
@@ -74,12 +63,25 @@ class DEncryption {
             return cipher.doFinal(fileData)
         }
 
-        fun paddingEndPosition(bytes: ByteArray): Int {
-            return 18
+        private fun dataStartPosition(bytes: ByteArray, paddingPattern: ByteArray): Int {
+            var paddingPatternIndex = 0
+            for(i in 0..bytes.size-1) {
+                if(paddingPattern[paddingPatternIndex] != bytes[i]) {
+                    paddingPatternIndex = 0
+                } else {
+                    paddingPatternIndex++
+                }
+                if(paddingPatternIndex == paddingPattern.size)
+                    return i+1
+            }
+            return -1
         }
 
-        fun removePaddingBytes(bytes: ByteArray): ByteArray {
-            var dataStartPos = paddingEndPosition(bytes) + 1
+        fun removePadding(bytes: ByteArray): ByteArray {
+            var dataStartPos = dataStartPosition(bytes, paddingArray)
+            Applog.info("paddingPattern", paddingArray, Throwable())
+            Applog.info("bytes", bytes, Throwable())
+            Applog.info("dataStartPos", dataStartPos, Throwable())
             var dataLength = bytes.size - dataStartPos
             var beforeEncoding = ByteArray(dataLength)
 
@@ -87,6 +89,10 @@ class DEncryption {
                 beforeEncoding[i-dataStartPos] = bytes[i]
             }
             return beforeEncoding
+        }
+
+        fun addPadding(bytes: ByteArray): ByteArray {
+            return paddingArray + bytes
         }
     }
 }

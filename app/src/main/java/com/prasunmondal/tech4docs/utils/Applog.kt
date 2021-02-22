@@ -4,23 +4,29 @@ import android.util.Log
 
 class Applog {
     companion object {
+        fun info(variableName: String, value: Any?, throwable: Throwable) {
+            var valueString = value.toString()
+            if(value is ByteArray) {
+                valueString = Bytes.printBytes(value)
+            }
+            Log.i("APPLOG: ", createString(variableName, valueString, throwable))
+        }
+
+        fun error(variableName: String, value: Any?, throwable: Throwable) {
+            var valueString = value.toString()
+            if(value is ByteArray) {
+                valueString = Bytes.printBytes(value)
+            }
+            Log.e("APPLOG: ", createString(variableName, valueString, throwable))
+        }
+
+        fun error(string: String, throwable: Throwable) {
+            error("", string, throwable)
+        }
 
         fun info(string: String, throwable: Throwable) {
             info("", string, throwable)
         }
-
-        fun info(variableName: String, value: Any?, throwable: Throwable) {
-            Log.i("APPLOG: ", createString(variableName, value.toString(), throwable))
-        }
-
-        fun error(variableName: String, value: Any?, throwable: Throwable) {
-            Log.e("APPLOG: ", createString(variableName, value.toString(), throwable))
-        }
-
-        fun error(string: String, throwable: Throwable) {
-            Log.e("APPLOG: ", createString("", string, throwable))
-        }
-
 
         private fun createString(variableName: String, string: String, throwable: Throwable): String {
             return "${className(throwable)}.${methodName(throwable)}().$variableName: $string"

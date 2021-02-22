@@ -1,10 +1,6 @@
-package com.prasunmondal.tech4docs;
+package com.prasunmondal.tech4docs.utils;
 
 import android.content.Context;
-import android.util.Log;
-
-import com.prasunmondal.tech4docs.utils.Applog;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,10 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class IOToFile {
-
-
-
+public class FileIO {
     public void WriteBytesToFile(Context context, String fileName, byte[] bytes) throws IOException {
         File path = context.getFilesDir();
         File file = new File(path, fileName + ".txt");
