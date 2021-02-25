@@ -49,7 +49,9 @@ class DEncryption {
         @Throws(Exception::class)
         fun encodeFile(fileData: ByteArray, key: String): ByteArray? {
             Applog.info("key", key, Throwable())
-            val generatedKey = generateKey(stretchPassword(key))
+            var expandedPassword = stretchPassword(key)
+            Applog.info("expandedPassword", expandedPassword, Throwable())
+            val generatedKey = generateKey(expandedPassword)
             Applog.info("generatedKey", Bytes.printBytes(generatedKey), Throwable())
             val skeySpec = SecretKeySpec(generatedKey, "AES")
             val cipher = Cipher.getInstance("AES")
@@ -61,7 +63,9 @@ class DEncryption {
         @Throws(Exception::class)
         fun decodeFile(fileData: ByteArray, key: String): ByteArray? {
             Applog.info("key", key, Throwable())
-            val generatedKey = generateKey(stretchPassword(key))
+            var expandedPassword = stretchPassword(key)
+            Applog.info("expandedPassword", expandedPassword, Throwable())
+            val generatedKey = generateKey(expandedPassword)
             Applog.info("generatedKey", Bytes.printBytes(generatedKey), Throwable())
             val skeySpec = SecretKeySpec(generatedKey, "AES")
             val cipher = Cipher.getInstance("AES")

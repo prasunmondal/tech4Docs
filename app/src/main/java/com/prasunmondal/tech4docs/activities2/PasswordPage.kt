@@ -32,7 +32,7 @@ class PasswordPage : AppCompatActivity() {
         passwordField = findViewById(R.id.configure_recordType_editText_addQues)
         submitButton = findViewById(R.id.password_page_btn_submit)
 
-        val doesVaultExist = Vault.doesAnyVaultExist(this)
+        val doesVaultExist = Vault.doesExists(this)
         Applog.info("doesVaultExist", "$doesVaultExist", Throwable())
 
         actionMode = if (doesVaultExist)
@@ -76,15 +76,24 @@ class PasswordPage : AppCompatActivity() {
 
     private fun loadAVault(password: String) {
         Applog.startMethod(Throwable())
+        Applog.info("password", password, Throwable())
         try {
-            Vault.load(this, password)
-            goToCreateRecordTypePage()
-            Vault.password = password
-            Applog.info("Loading Vault status", "SUCCESS", Throwable())
+            if(!Vault.verifyPassword(this, password)) {
+                handleInvalidPassword()
+            } else {
+                Vault.load(this, password)
+                goToCreateRecordTypePage()
+                Vault.password = password
+                Applog.info("Loading Vault status", "SUCCESS", Throwable())
+            }
         } catch (e: InvalidPasswordException) {
-            Applog.info("Loading Vault status", "FAILED", Throwable())
-            Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show()
+            handleInvalidPassword()
         }
+    }
+
+    private fun handleInvalidPassword() {
+        Applog.info("Loading Vault status", "FAILED", Throwable())
+        Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show()
     }
 
     private fun createANewVault() {
