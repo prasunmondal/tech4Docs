@@ -4,6 +4,15 @@ import android.util.Log
 
 class Applog {
     companion object {
+
+        fun startMethod(throwable: Throwable) {
+            info( "Start Method", throwable)
+        }
+
+        fun endMethod(throwable: Throwable) {
+            info( "End Method", throwable)
+        }
+
         fun info(variableName: String, value: Any?, throwable: Throwable) {
             var valueString = value.toString()
             if(value is ByteArray) {

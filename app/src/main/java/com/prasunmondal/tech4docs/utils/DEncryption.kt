@@ -1,5 +1,6 @@
 package com.prasunmondal.tech4docs.utils
 
+import android.annotation.SuppressLint
 import java.io.*
 import java.security.SecureRandom
 import javax.crypto.Cipher
@@ -13,10 +14,11 @@ import javax.crypto.spec.SecretKeySpec
 class DEncryption {
     companion object {
 
-        var paddingArray: ByteArray = byteArrayOf(7,1,2,7,8,6,1,6,6,6,3,2,5,7,1,2,7,8,6,1,6,6,6,3,2,5)
+        private var paddingArray: ByteArray = byteArrayOf(7,1,2,7,8,6,1,6,6,6,3,2,5,7,1,2,7,8,6,1,6,6,6,3,2,5)
+        private var minPasswordLengthForEncryptionDecryption = 24
 
         @Throws(Exception::class)
-        fun generateKey(password: String): ByteArray? {
+        fun generateKey(password: String): ByteArray {
             Applog.info("password", password, Throwable())
             val keyStart = password.toByteArray(charset("UTF-8"))
             val kgen = KeyGenerator.getInstance("AES")
@@ -43,9 +45,11 @@ class DEncryption {
             return is1.readObject()
         }
 
+        @SuppressLint("GetInstance")
         @Throws(Exception::class)
         fun encodeFile(fileData: ByteArray, key: String): ByteArray? {
-            val generatedKey = generateKey(key)
+            Applog.info("key", key, Throwable())
+            val generatedKey = generateKey(stretchPassword(key))
             Applog.info("generatedKey", Bytes.printBytes(generatedKey), Throwable())
             val skeySpec = SecretKeySpec(generatedKey, "AES")
             val cipher = Cipher.getInstance("AES")
@@ -53,9 +57,11 @@ class DEncryption {
             return cipher.doFinal(fileData)
         }
 
+        @SuppressLint("GetInstance")
         @Throws(Exception::class)
         fun decodeFile(fileData: ByteArray, key: String): ByteArray? {
-            val generatedKey = generateKey(key)
+            Applog.info("key", key, Throwable())
+            val generatedKey = generateKey(stretchPassword(key))
             Applog.info("generatedKey", Bytes.printBytes(generatedKey), Throwable())
             val skeySpec = SecretKeySpec(generatedKey, "AES")
             val cipher = Cipher.getInstance("AES")
@@ -65,7 +71,7 @@ class DEncryption {
 
         private fun dataStartPosition(bytes: ByteArray, paddingPattern: ByteArray): Int {
             var paddingPatternIndex = 0
-            for(i in 0..bytes.size-1) {
+            for(i in 0..bytes.size - 1) {
                 if(paddingPattern[paddingPatternIndex] != bytes[i]) {
                     paddingPatternIndex = 0
                 } else {
@@ -78,12 +84,12 @@ class DEncryption {
         }
 
         fun removePadding(bytes: ByteArray): ByteArray {
-            var dataStartPos = dataStartPosition(bytes, paddingArray)
+            val dataStartPos = dataStartPosition(bytes, paddingArray)
             Applog.info("paddingPattern", paddingArray, Throwable())
             Applog.info("bytes", bytes, Throwable())
             Applog.info("dataStartPos", dataStartPos, Throwable())
-            var dataLength = bytes.size - dataStartPos
-            var beforeEncoding = ByteArray(dataLength)
+            val dataLength = bytes.size - dataStartPos
+            val beforeEncoding = ByteArray(dataLength)
 
             for (i in dataStartPos until bytes.size) {
                 beforeEncoding[i-dataStartPos] = bytes[i]
@@ -93,6 +99,16 @@ class DEncryption {
 
         fun addPadding(bytes: ByteArray): ByteArray {
             return paddingArray + bytes
+        }
+
+        private fun stretchPassword(password: String): String {
+            var generatedPassword = password
+            while(generatedPassword.length < minPasswordLengthForEncryptionDecryption) {
+                generatedPassword += password
+            }
+            Applog.info("generatedPassword", generatedPassword, Throwable())
+            Applog.endMethod(Throwable())
+            return generatedPassword
         }
     }
 }
