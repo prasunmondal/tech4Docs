@@ -13,15 +13,6 @@ import com.prasunmondal.tech4docs.activities.ListRecordTypes
 import com.prasunmondal.tech4docs.models.InvalidPasswordException
 import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.utils.Applog
-import java.io.Serializable
-
-class Test2 : Serializable {
-    var l = 90;
-
-    override fun toString(): String {
-        return "l: $l"
-    }
-}
 
 class PasswordPage : AppCompatActivity() {
 
@@ -30,10 +21,10 @@ class PasswordPage : AppCompatActivity() {
         OPEN_VAULT
     }
 
-    lateinit var actionMode: ActionMode
+    private lateinit var actionMode: ActionMode
 
-    lateinit var passwordField: EditText
-    lateinit var submitButton: Button
+    private lateinit var passwordField: EditText
+    private lateinit var submitButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +52,7 @@ class PasswordPage : AppCompatActivity() {
 
     }
 
-    fun customizeUIOnCreate() {
+    private fun customizeUIOnCreate() {
         when (actionMode) {
             ActionMode.CREATE_VAULT ->
                 submitButton.text = "CREATE VAULT"
@@ -84,22 +75,27 @@ class PasswordPage : AppCompatActivity() {
     }
 
     private fun loadAVault(password: String) {
+        Applog.startMethod(Throwable())
         try {
             Vault.load(this, password)
             goToCreateRecordTypePage()
             Vault.password = password
+            Applog.info("Loading Vault status", "SUCCESS", Throwable())
         } catch (e: InvalidPasswordException) {
+            Applog.info("Loading Vault status", "FAILED", Throwable())
             Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun createANewVault() {
+        Applog.startMethod(Throwable())
         var password = getInputPassword()
         Applog.info("password", password, Throwable())
         if (Vault.isValidCreationPassword(password)) {
             Vault.password = password
             Vault.create(this)
             Toast.makeText(this, "New Vault Created!", Toast.LENGTH_SHORT).show()
+            Applog.info("Creating Vault status", "SUCCESS", Throwable())
             goToCreateRecordTypePage()
         } else {
             Toast.makeText(
@@ -115,7 +111,7 @@ class PasswordPage : AppCompatActivity() {
         return passwordField.text.toString()
     }
 
-    fun goToCreateRecordTypePage() {
+    private fun goToCreateRecordTypePage() {
         Vault.password = getInputPassword()
         val myIntent = Intent(this, ListRecordTypes::class.java)
         this.startActivity(myIntent)
