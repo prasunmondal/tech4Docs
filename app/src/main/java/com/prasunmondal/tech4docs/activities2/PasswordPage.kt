@@ -87,6 +87,7 @@ class PasswordPage : AppCompatActivity() {
         try {
             Vault.load(this, password)
             goToCreateRecordTypePage()
+            Vault.password = password
         } catch (e: InvalidPasswordException) {
             Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show()
         }
