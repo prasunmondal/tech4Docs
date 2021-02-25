@@ -2,10 +2,9 @@ package com.prasunmondal.tech4docs.models
 
 import android.content.Context
 import com.prasunmondal.tech4docs.Constants
-import com.prasunmondal.tech4docs.Exceptions.NoVaultException
+import com.prasunmondal.tech4docs.Exceptions.NoVaultExistsException
 import com.prasunmondal.tech4docs.Exceptions.PasswordComplexityNotMet
 import com.prasunmondal.tech4docs.Exceptions.VaultNotLoaded
-import com.prasunmondal.tech4docs.Exceptions.VaultVerificationError
 import com.prasunmondal.tech4docs.utils.Applog
 import com.prasunmondal.tech4docs.utils.DEncryption
 import com.prasunmondal.tech4docs.utils.FileIO
@@ -15,7 +14,6 @@ import javax.crypto.BadPaddingException
 
 class Vault : Serializable {
     var recordTypes: ArrayList<RecordType>
-
 
     private constructor(context: Context, password: String) {
         this.recordTypes = mutableListOf<RecordType>() as ArrayList<RecordType>
@@ -46,9 +44,9 @@ class Vault : Serializable {
 
         fun load(context: Context, password: String): Vault {
             if(!doesExists(context))
-                throw NoVaultException()
+                throw NoVaultExistsException()
             if(!verifyPassword(context, password))
-                throw VaultVerificationError()
+                throw InvalidPasswordException()
 
             instance = readFromFile(context, password)
             return instance!!

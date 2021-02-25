@@ -1,13 +1,6 @@
 package com.prasunmondal.tech4docs.Exceptions
 
-class NoVaultException : Exception() {
-
-    override fun toString(): String {
-        return super.toString()
-    }
-}
-
-class VaultVerificationError : Exception() {
+class NoVaultExistsException : Exception() {
 
     override fun toString(): String {
         return super.toString()

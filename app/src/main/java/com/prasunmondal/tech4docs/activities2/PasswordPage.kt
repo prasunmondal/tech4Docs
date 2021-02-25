@@ -87,12 +87,13 @@ class PasswordPage : AppCompatActivity() {
                 Applog.info("Loading Vault status", "SUCCESS", Throwable())
             }
         } catch (e: InvalidPasswordException) {
+            Applog.info("Loading Vault status", "FAILED", Throwable())
             handleInvalidPassword()
         }
     }
 
     private fun handleInvalidPassword() {
-        Applog.info("Loading Vault status", "FAILED", Throwable())
+        Applog.info("Invalid Password", Throwable())
         Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show()
     }
 
