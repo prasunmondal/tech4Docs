@@ -22,7 +22,7 @@ import com.prasunmondal.tech4docs.models.RecordType
 import com.prasunmondal.tech4docs.models.Vault
 
 
-class ConfigureDataType : AppCompatActivity() {
+class CustomizeRecordTypes : AppCompatActivity() {
 
     lateinit var recordType: RecordType
     lateinit var questionInput: EditText

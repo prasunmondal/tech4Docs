@@ -108,7 +108,7 @@ class ListRecordTypes : AppCompatActivity() {
     }
 
     private fun goToConfigureActivity(recordType: RecordType) {
-        val myIntent = Intent(this, ConfigureDataType::class.java)
+        val myIntent = Intent(this, CustomizeRecordTypes::class.java)
         val bundle = Bundle()
         bundle.putString("dataTypeToConfigure", recordType.name)
         myIntent.putExtras(bundle)

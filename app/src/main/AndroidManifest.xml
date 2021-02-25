@@ -19,7 +19,7 @@
         <activity android:name=".activities.DisplayRecordTypeDetails" />
         <activity android:name=".activities2.PasswordPage"></activity>
         <activity android:name=".activities.ListRecordTypes" />
-        <activity android:name=".activities.ConfigureDataType" />
+        <activity android:name=".activities.CustomizeRecordTypes" />
         <activity
             android:name=".activities.ViewCards"
             android:label="@string/title_activity_view_cards"
