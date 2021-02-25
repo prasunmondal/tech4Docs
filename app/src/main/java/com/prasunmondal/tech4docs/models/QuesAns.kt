@@ -1,6 +1,8 @@
 package com.prasunmondal.tech4docs.models
 
-class QuesAns {
+import java.io.Serializable
+
+class QuesAns: Serializable {
     var questionID: String
     var answer: Answer
 

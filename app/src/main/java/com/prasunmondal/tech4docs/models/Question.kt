@@ -2,8 +2,9 @@ package com.prasunmondal.tech4docs.models
 
 import com.prasunmondal.tech4docs.enums.AnswerType
 import com.prasunmondal.tech4docs.enums.HideLevel
+import java.io.Serializable
 
-class Question {
+class Question: Serializable {
     var id: String
     var question: String
     var answerType: AnswerType

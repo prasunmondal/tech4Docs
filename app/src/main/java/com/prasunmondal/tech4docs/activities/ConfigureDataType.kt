@@ -35,6 +35,7 @@ class ConfigureDataType : AppCompatActivity() {
         populateAnswerTypes()
         fetchReceivedData()
         addAEditBox()
+        displayLines()
     }
 
     private fun addAEditBox() {

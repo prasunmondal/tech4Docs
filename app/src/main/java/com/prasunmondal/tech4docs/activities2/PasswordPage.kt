@@ -13,6 +13,7 @@ import com.prasunmondal.tech4docs.activities.ListRecordTypes
 import com.prasunmondal.tech4docs.models.InvalidPasswordException
 import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.utils.Applog
+import javax.crypto.IllegalBlockSizeException
 
 class PasswordPage : AppCompatActivity() {
 
@@ -89,6 +90,9 @@ class PasswordPage : AppCompatActivity() {
         } catch (e: InvalidPasswordException) {
             Applog.info("Loading Vault status", "FAILED", Throwable())
             handleInvalidPassword()
+        } catch (e: IllegalBlockSizeException) {
+            Applog.info("Vault object outdated wrt recent Vault class.", Throwable())
+            Toast.makeText(this, "Vault object outdated w.r.t recent Vault class.", Toast.LENGTH_SHORT).show()
         }
     }
 
