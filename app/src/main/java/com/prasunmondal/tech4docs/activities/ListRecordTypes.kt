@@ -21,8 +21,7 @@ class ListRecordTypes : AppCompatActivity() {
         displayLines()
 
         // dev
-        datatypeNameInput.setText("datatype1");
-        createDataType()
+        createDataType("datatype" + Vault.get(this).recordTypes.size)
 
     }
 
@@ -61,10 +60,24 @@ class ListRecordTypes : AppCompatActivity() {
         editDataType.setOnClickListener {
             onClickEditDataType(recordType)
         }
+//
+//        val addDataTypeRecordsView = TextView(this)
+//        addDataTypeRecordsView.text = "create"
+//        addDataTypeRecordsView.setPadding(20, 40, 20, 10)
+//        addDataTypeRecordsView.setBackgroundColor(R.color.black)
+//        addDataTypeRecordsView.setBackgroundResource(R.color.white)
+//        addDataTypeRecordsView.setOnClickListener {
+//            onClickAddDataTypeRecordsView(recordType)
+//        }
 
         horizontalLayout.addView(dataTypeName)
         horizontalLayout.addView(editDataType)
+//        horizontalLayout.addView(addDataTypeRecordsView)
         layout.addView(horizontalLayout)
+    }
+
+    private fun onClickAddDataTypeRecordsView(recordType: RecordType) {
+        Toast.makeText(this, "Go to view!", Toast.LENGTH_SHORT).show()
     }
 
     private fun onClickEditDataType(recordType: RecordType) {
@@ -80,12 +93,22 @@ class ListRecordTypes : AppCompatActivity() {
     }
 
     fun onClickCreateRecordType(view: View) {
-        // TODO: Check if string is empty
-        createDataType()
+        val name: String = datatypeNameInput.text.toString()
+        createDataType(name)
     }
 
-    private fun createDataType() {
-        val name: String = datatypeNameInput.text.toString()
+    private fun doesDataTypeExists(name: String): Boolean {
+        Vault.get(this).recordTypes.forEach { t ->
+            if(t.name.equals(name, ignoreCase = true)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun createDataType(name: String) {
+        if(!createDataType_dataCheck(name))
+            return
         val dataCollection = Vault.get(this).recordTypes
         val dataTypeCreated = RecordType(name)
         dataTypeCreated.questions = ArrayList()
@@ -93,6 +116,18 @@ class ListRecordTypes : AppCompatActivity() {
         Vault.write(this, Vault.password)
         displayLines()
         goToConfigureActivity(dataTypeCreated)
+    }
+
+    private fun createDataType_dataCheck(name: String): Boolean {
+        if(name.isEmpty()) {
+            Toast.makeText(this, "Please Enter the Record Type Name", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if(doesDataTypeExists(name)) {
+            Toast.makeText(this, "Record Type Exists!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 
     private fun goToViewRecordTypeRecords(recordType: RecordType) {
