@@ -1,9 +1,9 @@
 package com.prasunmondal.tech4docs.activities2
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.R
 
 class SplashScreen : AppCompatActivity() {
@@ -15,7 +15,7 @@ class SplashScreen : AppCompatActivity() {
 
         Handler().postDelayed({
             goToPasswordPage()
-        },  splashScreeDelayInMs)
+        }, splashScreeDelayInMs)
     }
 
     private fun goToPasswordPage() {

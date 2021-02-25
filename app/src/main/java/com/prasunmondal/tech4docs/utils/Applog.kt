@@ -6,16 +6,16 @@ class Applog {
     companion object {
 
         fun startMethod(throwable: Throwable) {
-            info( "Start Method", throwable)
+            info("Start Method", throwable)
         }
 
         fun endMethod(throwable: Throwable) {
-            info( "End Method", throwable)
+            info("End Method", throwable)
         }
 
         fun info(variableName: String, value: Any?, throwable: Throwable) {
             var valueString = value.toString()
-            if(value is ByteArray) {
+            if (value is ByteArray) {
                 valueString = Bytes.printBytes(value)
             }
             Log.i("APPLOG: ", createString(variableName, valueString, throwable))
@@ -23,7 +23,7 @@ class Applog {
 
         fun error(variableName: String, value: Any?, throwable: Throwable) {
             var valueString = value.toString()
-            if(value is ByteArray) {
+            if (value is ByteArray) {
                 valueString = Bytes.printBytes(value)
             }
             Log.e("APPLOG: ", createString(variableName, valueString, throwable))
@@ -43,14 +43,14 @@ class Applog {
 
         private fun className(throwable: Throwable): String {
             return throwable
-                .stackTrace[0]
-                .className
+                    .stackTrace[0]
+                    .className
         }
 
         private fun methodName(throwable: Throwable): String {
             return throwable
-                .stackTrace[0]
-                .methodName
+                    .stackTrace[0]
+                    .methodName
         }
     }
 }

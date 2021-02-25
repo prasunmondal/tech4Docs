@@ -14,7 +14,7 @@ import javax.crypto.spec.SecretKeySpec
 class DEncryption {
     companion object {
 
-        private var paddingArray: ByteArray = byteArrayOf(7,1,2,7,8,6,1,6,6,6,3,2,5,7,1,2,7,8,6,1,6,6,6,3,2,5)
+        private var paddingArray: ByteArray = byteArrayOf(7, 1, 2, 7, 8, 6, 1, 6, 6, 6, 3, 2, 5, 7, 1, 2, 7, 8, 6, 1, 6, 6, 6, 3, 2, 5)
         private var minPasswordLengthForEncryptionDecryption = 24
 
         @Throws(Exception::class)
@@ -71,14 +71,14 @@ class DEncryption {
 
         private fun dataStartPosition(bytes: ByteArray, paddingPattern: ByteArray): Int {
             var paddingPatternIndex = 0
-            for(i in 0..bytes.size - 1) {
-                if(paddingPattern[paddingPatternIndex] != bytes[i]) {
+            for (i in 0..bytes.size - 1) {
+                if (paddingPattern[paddingPatternIndex] != bytes[i]) {
                     paddingPatternIndex = 0
                 } else {
                     paddingPatternIndex++
                 }
-                if(paddingPatternIndex == paddingPattern.size)
-                    return i+1
+                if (paddingPatternIndex == paddingPattern.size)
+                    return i + 1
             }
             return -1
         }
@@ -92,7 +92,7 @@ class DEncryption {
             val beforeEncoding = ByteArray(dataLength)
 
             for (i in dataStartPos until bytes.size) {
-                beforeEncoding[i-dataStartPos] = bytes[i]
+                beforeEncoding[i - dataStartPos] = bytes[i]
             }
             return beforeEncoding
         }
@@ -103,7 +103,7 @@ class DEncryption {
 
         private fun stretchPassword(password: String): String {
             var generatedPassword = password
-            while(generatedPassword.length < minPasswordLengthForEncryptionDecryption) {
+            while (generatedPassword.length < minPasswordLengthForEncryptionDecryption) {
                 generatedPassword += password
             }
             Applog.info("generatedPassword", generatedPassword, Throwable())

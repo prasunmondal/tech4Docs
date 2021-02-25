@@ -1,18 +1,19 @@
 package com.prasunmondal.tech4docs.models
 
 import android.content.Context
+import com.prasunmondal.tech4docs.Constants
 import com.prasunmondal.tech4docs.Exceptions.NoVaultException
+import com.prasunmondal.tech4docs.Exceptions.PasswordComplexityNotMet
 import com.prasunmondal.tech4docs.Exceptions.VaultNotLoaded
 import com.prasunmondal.tech4docs.Exceptions.VaultVerificationError
-import com.prasunmondal.tech4docs.utils.FileIO
-import com.prasunmondal.tech4docs.Constants
-import com.prasunmondal.tech4docs.Exceptions.PasswordComplexityNotMet
 import com.prasunmondal.tech4docs.utils.Applog
 import com.prasunmondal.tech4docs.utils.DEncryption
-import java.io.*
+import com.prasunmondal.tech4docs.utils.FileIO
+import java.io.FileNotFoundException
+import java.io.Serializable
 import javax.crypto.BadPaddingException
 
-class Vault: Serializable {
+class Vault : Serializable {
     var recordTypes: ArrayList<RecordType>
 
 
@@ -22,9 +23,9 @@ class Vault: Serializable {
 
     companion object {
         var password: String = ""
-        private  var instance: Vault? = null
+        private var instance: Vault? = null
         fun get(context: Context): Vault {
-            if(instance == null)
+            if (instance == null)
                 throw VaultNotLoaded()
             return instance!!
         }
@@ -32,8 +33,8 @@ class Vault: Serializable {
         fun create(context: Context): Vault {
             var isCreationPasswordValid = isValidCreationPassword(password)
             Applog.info("isCreationPasswordValid", isCreationPasswordValid, Throwable())
-            if(isCreationPasswordValid) {
-                if(instance == null)
+            if (isCreationPasswordValid) {
+                if (instance == null)
                     instance = Vault(context, password)
                 write(context, password)
                 Applog.info("Vault creation: Successful", Throwable())
@@ -44,16 +45,15 @@ class Vault: Serializable {
         }
 
         fun load(context: Context, password: String): Vault {
-            if(instance == null)
+            if (instance == null)
                 instance = readFromFile(context, password)
 
-            if(instance == null)
+            if (instance == null)
                 throw NoVaultException()
             else { // Vault Exist
-                if(verifyPassword(context, password)) {
+                if (verifyPassword(context, password)) {
                     return instance!!
-                }
-                else {
+                } else {
                     throw VaultVerificationError()
                 }
             }
@@ -80,7 +80,7 @@ class Vault: Serializable {
         fun doesAnyVaultExist(context: Context): Boolean {
             return try {
                 FileIO().ReadBytesFromFile(context, Constants.FILENAME_PHONEBOOK)
-                Applog.info("return",true, Throwable())
+                Applog.info("return", true, Throwable())
                 true
             } catch (e: FileNotFoundException) {
                 Applog.info("Vault Not Found", Throwable())

@@ -7,12 +7,13 @@ import android.os.Bundle
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.prasunmondal.tech4docs.Constants
 import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.enums.AnswerType
 import com.prasunmondal.tech4docs.enums.HideLevel
@@ -47,7 +48,7 @@ class ConfigureDataType : AppCompatActivity() {
 
     fun populateAnswerTypes() {
         var displayList = arrayListOf<String>()
-        for(c in AnswerType.values()) {
+        for (c in AnswerType.values()) {
             displayList.add("kehbksb")
         }
         displayList.add("kehbksb")
@@ -112,7 +113,7 @@ class ConfigureDataType : AppCompatActivity() {
     }
 
     fun createNewDataRow(view: View) {
-        if(recordType.questions == null)
+        if (recordType.questions == null)
             recordType.questions = mutableListOf<Question>() as ArrayList<Question>
         var id = recordType.questions.size.toString()
         recordType.questions.add(Question(id, questionInput.text.toString(), AnswerType.valueOf("STRING"), HideLevel.NO_HIDE, true, id.toInt()))

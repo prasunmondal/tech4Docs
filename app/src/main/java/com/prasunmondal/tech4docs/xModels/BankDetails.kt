@@ -24,21 +24,21 @@ class BankDetails {
     var securityQuestionsNAnswers: Map<String, String>
 
     constructor(
-        AccountNumber: String,
-        IFSCCode: String,
-        BranchName: String,
-        MICRCode: String,
-        BranchAddress: String,
-        AccountHolderName: String,
-        UPICodes: ArrayList<String>,
-        linkedEmailId: String,
-        linkedPhoneNumber: String,
-        customerId: String,
-        netbankingUserid: String,
-        netbankingLoginPassword: String,
-        netbankingTransactionPassword: String,
-        appOpeningPIN: String,
-        securityQuestionsNAnswers: Map<String, String>
+            AccountNumber: String,
+            IFSCCode: String,
+            BranchName: String,
+            MICRCode: String,
+            BranchAddress: String,
+            AccountHolderName: String,
+            UPICodes: ArrayList<String>,
+            linkedEmailId: String,
+            linkedPhoneNumber: String,
+            customerId: String,
+            netbankingUserid: String,
+            netbankingLoginPassword: String,
+            netbankingTransactionPassword: String,
+            appOpeningPIN: String,
+            securityQuestionsNAnswers: Map<String, String>
     ) {
         this.AccountNumber = AccountNumber
         this.IFSCCode = IFSCCode

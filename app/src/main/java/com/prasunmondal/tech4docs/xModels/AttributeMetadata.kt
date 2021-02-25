@@ -2,7 +2,7 @@ package com.prasunmondal.tech4docs.xModels
 
 import java.io.Serializable
 
-class AttributeMetadata: Serializable {
+class AttributeMetadata : Serializable {
     lateinit var attributeName: String
     lateinit var attributeValue: String
 

@@ -1,6 +1,7 @@
 package com.prasunmondal.tech4docs.utils;
 
 import android.content.Context;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,6 +12,34 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class FileIO {
+    public static void deleteObjectFromFile(String fileName) {
+        try {
+//            File file = new File(fileName);
+//            System.out.println("Delete Detaisl: ");
+//            System.out.println(file.getAbsolutePath());
+//            System.out.println(file.exists());
+//            file.delete();
+//            System.err.println("Delete Success: ");
+
+            fileName = "/" + fileName;
+            System.out.println(fileName);
+
+            File fdelete = new File(fileName);
+            if (fdelete.exists()) {
+                if (fdelete.delete()) {
+                    System.out.println("file Deleted :" + fileName);
+                } else {
+                    System.out.println("file not Deleted :" + fileName);
+                }
+            } else {
+                System.out.println("file Deleted not exist:");
+            }
+        } catch (Exception e) {
+            System.err.println("Delete error: ");
+            e.printStackTrace();
+        }
+    }
+
     public void WriteBytesToFile(Context context, String fileName, byte[] bytes) throws IOException {
         File path = context.getFilesDir();
         File file = new File(path, fileName + ".txt");
@@ -35,7 +64,7 @@ public class FileIO {
         try {
 //            File file = new File(fileName);
             int size = (int) file.length();
-            Applog.Companion.info("size",size, new Throwable());
+            Applog.Companion.info("size", size, new Throwable());
             byte[] bytes = new byte[size];
             try {
                 BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
@@ -83,37 +112,6 @@ public class FileIO {
         } catch (Exception e) {
             Applog.Companion.error("Error while reading object from file", new Throwable());
             throw e;
-        }
-    }
-
-    public static void deleteObjectFromFile(String fileName)
-    {
-        try {
-//            File file = new File(fileName);
-//            System.out.println("Delete Detaisl: ");
-//            System.out.println(file.getAbsolutePath());
-//            System.out.println(file.exists());
-//            file.delete();
-//            System.err.println("Delete Success: ");
-
-            fileName = "/" + fileName;
-            System.out.println(fileName);
-
-            File fdelete = new File(fileName);
-            if (fdelete.exists()) {
-                if (fdelete.delete()) {
-                    System.out.println("file Deleted :" + fileName);
-                } else {
-                    System.out.println("file not Deleted :" + fileName);
-                }
-            } else {
-                System.out.println("file Deleted not exist:");
-            }
-        }
-        catch(Exception e)
-        {
-            System.err.println("Delete error: ");
-            e.printStackTrace();
         }
     }
 }

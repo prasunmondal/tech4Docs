@@ -88,7 +88,7 @@ class ListRecordTypes : AppCompatActivity() {
 
     fun addDataTypeToSpinner() {
         var displayList = arrayListOf<String>()
-        for(item in Vault.get(this).recordTypes) {
+        for (item in Vault.get(this).recordTypes) {
             displayList.add(item.name)
         }
         val adapter = ArrayAdapter(this, android.R.layout.select_dialog_item, displayList)

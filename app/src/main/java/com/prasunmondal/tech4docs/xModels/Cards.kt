@@ -1,11 +1,11 @@
 package com.prasunmondal.tech4docs.xModels
 
+import com.google.gson.Gson
 import com.prasunmondal.tech4docs.enums.CardType
 import com.prasunmondal.tech4docs.enums.CardsProvider
 import java.io.Serializable
-import com.google.gson.Gson
 
-class Cards: Serializable {
+class Cards : Serializable {
     var cardType: CardType
     var cardsProvider: CardsProvider
     var cardNumber: String
@@ -18,16 +18,16 @@ class Cards: Serializable {
     var name: String
 
     constructor(
-        cardType: CardType,
-        cardsProvider: CardsProvider,
-        cardNumber: String,
-        cardHolderName: String,
-        expiryDate: Int,
-        expiryMonth: Int,
-        CVV: Int,
-        pin: Int,
-        linkedBank: String,
-        name: String
+            cardType: CardType,
+            cardsProvider: CardsProvider,
+            cardNumber: String,
+            cardHolderName: String,
+            expiryDate: Int,
+            expiryMonth: Int,
+            CVV: Int,
+            pin: Int,
+            linkedBank: String,
+            name: String
     ) {
         this.cardType = cardType
         this.cardsProvider = cardsProvider

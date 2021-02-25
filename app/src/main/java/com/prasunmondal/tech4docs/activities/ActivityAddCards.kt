@@ -12,9 +12,9 @@ import com.prasunmondal.tech4docs.CardManager
 import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.enums.CardType
 import com.prasunmondal.tech4docs.enums.CardsProvider
+import com.prasunmondal.tech4docs.models.RecordType
 import com.prasunmondal.tech4docs.xModels.AttributeMetadata
 import com.prasunmondal.tech4docs.xModels.Cards
-import com.prasunmondal.tech4docs.models.RecordType
 
 
 class ActivityAddCards : AppCompatActivity() {
@@ -76,13 +76,13 @@ class ActivityAddCards : AppCompatActivity() {
         textInputLayout.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
         textInputLayout.boxStrokeColor = R.color.black
         textInputLayout.setBoxCornerRadii(5F, 5F, 5F, 5F);
-        textInputLayout.setPadding(0, 40,0,10)
+        textInputLayout.setPadding(0, 40, 0, 10)
 
         var edittext = TextInputEditText(this)
         edittext.setText(value)
         edittext.setBackgroundColor(R.color.black)
         edittext.setBackgroundResource(R.color.white)
-        edittext.setPadding(20, 40,20,10)
+        edittext.setPadding(20, 40, 20, 10)
 
         // adding components
         textInputLayout.addView(edittext)
@@ -93,32 +93,41 @@ class ActivityAddCards : AppCompatActivity() {
 //        return CardType.valueOf(editCardsProvider.text.toString())
         return CardType.CREDIT
     }
+
     private fun getcardsProvider(): CardsProvider {
 //        var provider = editCardsProvider.text.toString()
 //        return CardsProvider.valueOf(provider)
         return CardsProvider.VISA
     }
+
     private fun getcardNumber(): String {
         return editCardNumber.text.toString()
     }
+
     private fun getcardHolderName(): String {
         return editCardHolderName.text.toString()
     }
+
     private fun getexpiryDate(): Int {
         return editExpiryDate.text.toString().toInt()
     }
+
     private fun getexpiryMonth(): Int {
         return editExpiryMonth.text.toString().toInt()
     }
+
     private fun getCVV(): Int {
         return editCVV.text.toString().toInt()
     }
+
     private fun getpin(): Int {
         return editPIN.text.toString().toInt()
     }
+
     private fun getlinkedBank(): String {
         return editLinkedBank.text.toString()
     }
+
     private fun getName(): String {
         return editName.text.toString()
     }

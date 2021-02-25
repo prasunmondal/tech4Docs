@@ -5,9 +5,8 @@ import android.util.Log
 import com.prasunmondal.tech4docs.utils.FileIO
 import com.prasunmondal.tech4docs.xModels.Cards
 import java.io.Serializable
-import java.lang.Exception
 
-class CardManager: Serializable {
+class CardManager : Serializable {
     object singleton {
         var instance = CardManager()
     }
@@ -18,11 +17,11 @@ class CardManager: Serializable {
         var ioObject = FileIO()
         try {
             cardsList = ioObject.ReadObjectFromFile(
-                context,
-                Constants.FILENAME_PHONEBOOK
+                    context,
+                    Constants.FILENAME_PHONEBOOK
             ) as ArrayList<Cards>
         } catch (e: Exception) {
-            Log.e("AppLog","No Data Read in CardManager.read")
+            Log.e("AppLog", "No Data Read in CardManager.read")
             Log.e("AppLog", e.stackTraceToString())
         }
     }
@@ -34,7 +33,7 @@ class CardManager: Serializable {
             Log.e("AppLog", "Data Written Successfully.. in CardManager.read")
             Log.e("AppLog", cardsList.toString())
         } catch (e: Exception) {
-            Log.e("AppLog","No Data Written in CardManager.write")
+            Log.e("AppLog", "No Data Written in CardManager.write")
             Log.e("AppLog", e.stackTraceToString())
         }
     }

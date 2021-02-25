@@ -62,7 +62,7 @@ class PasswordPage : AppCompatActivity() {
     }
 
     fun onClickPasswordSubmitButton(view: View) {
-        if(getInputPassword().isEmpty()) {
+        if (getInputPassword().isEmpty()) {
             Toast.makeText(this, "Please Enter a Password!", Toast.LENGTH_SHORT).show()
             return
         }

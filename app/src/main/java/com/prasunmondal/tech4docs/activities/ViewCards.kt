@@ -3,8 +3,8 @@ package com.prasunmondal.tech4docs.activities
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.prasunmondal.tech4docs.CardManager
 import com.prasunmondal.tech4docs.R
 
@@ -23,12 +23,12 @@ class ViewCards : AppCompatActivity() {
     }
 
     private fun displayCards() {
-        if(CardManager.singleton.instance.cardsList.isNullOrEmpty())
+        if (CardManager.singleton.instance.cardsList.isNullOrEmpty())
             return
 
         val textView = findViewById<TextView>(R.id.textView2)
         textView.text = ""
-        for(card in  CardManager.singleton.instance.cardsList) {
+        for (card in CardManager.singleton.instance.cardsList) {
             textView.text = textView.text.toString() + card.toString() + "\n\n"
         }
     }

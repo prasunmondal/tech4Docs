@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
         /*The type of the content is text, obviously.*/intent.type = "text/plain"
         /*Applying information Subject and Body.*/
         /*Applying information Subject and Body.*/intent.putExtra(
-            Intent.EXTRA_SUBJECT,
-            "getString(R.string.share_subject)"
+                Intent.EXTRA_SUBJECT,
+                "getString(R.string.share_subject)"
         )
         intent.putExtra(Intent.EXTRA_TEXT, shareBody)
         /*Fire!*/
