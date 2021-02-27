@@ -48,8 +48,8 @@ class PasswordPage : AppCompatActivity() {
         /*
              -- dev
          */
-//        passwordField.setText("Vault1")
-//        createANewVault()
+        passwordField.setText("prasun")
+        onClickPasswordSubmitButton(submitButton)
 
     }
 

@@ -9,7 +9,7 @@ import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.models.Question
 import com.prasunmondal.tech4docs.models.RecordType
 
-class DisplayRecordTypeDetails : AppCompatActivity() {
+class ListRecords : AppCompatActivity() {
 
     private lateinit var recordType: RecordType
 
@@ -64,7 +64,7 @@ class DisplayRecordTypeDetails : AppCompatActivity() {
         layout.removeAllViews()
 
         this.recordType.questions.forEach { c ->
-            println("tttttttttttttttt")
+//            println("tttttttttttttttt")
             println(c);
             addLineInUI(layout, c)
         }

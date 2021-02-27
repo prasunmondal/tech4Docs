@@ -21,7 +21,8 @@ class ListRecordTypes : AppCompatActivity() {
         displayLines()
 
         // dev
-        createDataType("datatype" + Vault.get(this).recordTypes.size)
+        createDataType("Debit Card")
+        createDataType("Credit Card")
 
     }
 
@@ -45,7 +46,7 @@ class ListRecordTypes : AppCompatActivity() {
         val dataTypeName = TextView(this)
         dataTypeName.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         dataTypeName.text = recordType.name
-        dataTypeName.setPadding(20, 40, 20, 10)
+        dataTypeName.setPadding(10, 10, 20, 10)
         dataTypeName.setBackgroundColor(R.color.black)
         dataTypeName.setBackgroundResource(R.color.white)
         dataTypeName.setOnClickListener {
@@ -53,8 +54,8 @@ class ListRecordTypes : AppCompatActivity() {
         }
 
         val editDataType = TextView(this)
-        editDataType.text = "Edit2"
-        editDataType.setPadding(20, 40, 20, 10)
+        editDataType.text = "Edit"
+        editDataType.setPadding(10, 10, 20, 10)
         editDataType.setBackgroundColor(R.color.black)
         editDataType.setBackgroundResource(R.color.white)
         editDataType.setOnClickListener {
@@ -131,7 +132,7 @@ class ListRecordTypes : AppCompatActivity() {
     }
 
     private fun goToViewRecordTypeRecords(recordType: RecordType) {
-        val myIntent = Intent(this, DisplayRecordTypeDetails::class.java)
+        val myIntent = Intent(this, ListRecords::class.java)
         val bundle = Bundle()
         bundle.putString("dataTypeToConfigure", recordType.name)
         myIntent.putExtras(bundle)

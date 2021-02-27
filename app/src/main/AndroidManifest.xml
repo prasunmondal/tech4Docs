@@ -16,7 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.DisplayRecordTypeDetails" />
+        <activity android:name=".activities.ListRecords" />
         <activity android:name=".activities2.PasswordPage"></activity>
         <activity android:name=".activities.ListRecordTypes" />
         <activity android:name=".activities.CustomizeRecordTypes" />
