@@ -6,8 +6,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.R
-import com.prasunmondal.tech4docs.models.Question
+import com.prasunmondal.tech4docs.models.QuesAns
 import com.prasunmondal.tech4docs.models.RecordType
+import com.prasunmondal.tech4docs.models.Vault
 
 class ListRecords : AppCompatActivity() {
 
@@ -29,14 +30,14 @@ class ListRecords : AppCompatActivity() {
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun addLineInUI(layout: LinearLayout, quesAns: Question) {
+    private fun addLineInUI(layout: LinearLayout, quesAns: QuesAns) {
         var horizontalLayout = LinearLayout(this)
         horizontalLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         horizontalLayout.orientation = LinearLayout.HORIZONTAL
 
         var dataTypeName = TextView(this)
         dataTypeName.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        dataTypeName.text = quesAns.answerType.toString()
+        dataTypeName.text = quesAns.toString()
         dataTypeName.setPadding(20, 40, 20, 10)
         dataTypeName.setBackgroundColor(R.color.black)
         dataTypeName.setBackgroundResource(R.color.white)
@@ -45,7 +46,7 @@ class ListRecords : AppCompatActivity() {
         }
 
         var editDataType = TextView(this)
-        editDataType.text = quesAns.question
+        editDataType.text = quesAns.toString()
         editDataType.setPadding(20, 40, 20, 10)
         editDataType.setBackgroundColor(R.color.black)
         editDataType.setBackgroundResource(R.color.white)
@@ -63,7 +64,7 @@ class ListRecords : AppCompatActivity() {
         layout.setPadding(10, 10, 10, 10)
         layout.removeAllViews()
 
-        this.recordType.questions.forEach { c ->
+        Vault.get(this).recordTypes[0].records.forEach { c ->
 //            println("tttttttttttttttt")
             println(c);
             addLineInUI(layout, c)

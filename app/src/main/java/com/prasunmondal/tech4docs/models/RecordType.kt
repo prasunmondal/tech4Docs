@@ -7,11 +7,12 @@ class RecordType : Serializable {
     var id: String
     var name: String
     lateinit var questions: ArrayList<Question>
-    lateinit var records: ArrayList<QuesAns>
+    var records: ArrayList<QuesAns>
 
     constructor(name: String) {
         this.id = generateID()
         this.name = name
+        this.records = arrayListOf(QuesAns("31", Answer("dkjfbnlsjv")))
     }
 
     private fun generateID(): String {
