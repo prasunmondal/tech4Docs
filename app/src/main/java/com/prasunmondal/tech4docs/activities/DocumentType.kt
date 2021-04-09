@@ -279,6 +279,7 @@ class DocumentType : AppCompatActivity() {
         dataCollection.add(dataTypeCreated)
         Vault.write(this, Vault.password)
         displayLines()
+        datatypeNameInput.setText("")
         goToConfigureActivity(dataTypeCreated)
     }
 
