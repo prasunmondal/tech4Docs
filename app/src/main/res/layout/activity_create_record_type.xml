@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ListRecordTypes">
+    android:background="#000000"
+    tools:context=".activities.DocumentType">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/container2"
@@ -23,7 +24,11 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="20dp"
+            android:background="#1C0303"
             android:inputType="textEmailAddress"
+            android:shadowColor="#FFFFFF"
+            android:textColor="#FBF9F9"
+            android:textColorHint="#F8F5F5"
             app:boxStrokeColor="@color/cardview_dark_background" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -41,6 +46,7 @@
         android:id="@+id/create_record_type_recordTypeContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="#100000"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/container2"
         app:layout_constraintEnd_toEndOf="parent"

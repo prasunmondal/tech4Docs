@@ -10,7 +10,7 @@ import com.prasunmondal.tech4docs.models.QuesAns
 import com.prasunmondal.tech4docs.models.RecordType
 import com.prasunmondal.tech4docs.models.Vault
 
-class ListRecords : AppCompatActivity() {
+class MoneyBack : AppCompatActivity() {
 
     private lateinit var recordType: RecordType
 
@@ -37,7 +37,7 @@ class ListRecords : AppCompatActivity() {
 
         var dataTypeName = TextView(this)
         dataTypeName.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        dataTypeName.text = quesAns.toString()
+        dataTypeName.text = quesAns.questionID
         dataTypeName.setPadding(20, 40, 20, 10)
         dataTypeName.setBackgroundColor(R.color.black)
         dataTypeName.setBackgroundResource(R.color.white)
@@ -46,7 +46,7 @@ class ListRecords : AppCompatActivity() {
         }
 
         var editDataType = TextView(this)
-        editDataType.text = quesAns.toString()
+        editDataType.text = quesAns.answer.answer
         editDataType.setPadding(20, 40, 20, 10)
         editDataType.setBackgroundColor(R.color.black)
         editDataType.setBackgroundResource(R.color.white)

@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.Constants
 import com.prasunmondal.tech4docs.R
-import com.prasunmondal.tech4docs.activities.ListRecordTypes
+import com.prasunmondal.tech4docs.activities.DocumentType
 import com.prasunmondal.tech4docs.models.InvalidPasswordException
 import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.utils.Applog
@@ -127,7 +127,7 @@ class PasswordPage : AppCompatActivity() {
 
     private fun goToCreateRecordTypePage() {
         Vault.password = getInputPassword()
-        val myIntent = Intent(this, ListRecordTypes::class.java)
+        val myIntent = Intent(this, DocumentType::class.java)
         this.startActivity(myIntent)
         finish()
     }
