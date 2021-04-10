@@ -2,15 +2,12 @@ package com.prasunmondal.tech4docs.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import com.prasunmondal.tech4docs.R
-import com.prasunmondal.tech4docs.models.RecordType
+import com.prasunmondal.tech4docs.models.Document
 import com.prasunmondal.tech4docs.models.Vault
 
 
@@ -35,13 +32,13 @@ class DocumentType : AppCompatActivity() {
         layout.setPadding(10, 10, 10, 10)
         layout.removeAllViews()
 
-        Vault.get(this).recordTypes.forEach { c ->
+        Vault.get(this).documents.forEach { c ->
             addLineInUI(layout, c)
         }
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun addLineInUI(layout: LinearLayout, recordType: RecordType) {
+    private fun addLineInUI(layout: LinearLayout, document: Document) {
 
         val horizontalLayout = LinearLayout(this)
         horizontalLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
@@ -52,13 +49,13 @@ class DocumentType : AppCompatActivity() {
 
         val dataTypeName = TextView(this)
         dataTypeName.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        dataTypeName.text = recordType.name
+        dataTypeName.text = document.name
         dataTypeName.setPadding(10, 10, 20, 10)
         dataTypeName.setBackgroundColor(R.color.black)
 //        dataTypeName.setBackgroundResource(R.color.white)
         dataTypeName.setTextColor(resources.getColor(R.color.white))
         dataTypeName.setOnClickListener {
-            onClickDataTypeName(recordType)
+            onClickDataTypeName(document)
         }
 
         val editDataType = TextView(this)
@@ -68,7 +65,7 @@ class DocumentType : AppCompatActivity() {
 //        editDataType.setBackgroundColor(R.color.black)
 //        editDataType.setBackgroundResource(R.color.white)
         editDataType.setOnClickListener {
-            onClickEditDataType(recordType)
+            onClickEditDataType(document)
         }
 //
 //        val addDataTypeRecordsView = TextView(this)
@@ -240,16 +237,16 @@ class DocumentType : AppCompatActivity() {
 //        return 0.0
 //    }
 
-    private fun onClickAddDataTypeRecordsView(recordType: RecordType) {
+    private fun onClickAddDataTypeRecordsView(document: Document) {
         Toast.makeText(this, "Go to view!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun onClickEditDataType(recordType: RecordType) {
-        goToConfigureActivity(recordType)
+    private fun onClickEditDataType(document: Document) {
+        goToConfigureActivity(document)
     }
 
-    private fun onClickDataTypeName(recordType: RecordType) {
-        goToViewRecordTypeRecords(recordType)
+    private fun onClickDataTypeName(document: Document) {
+        goToViewRecordTypeRecords(document)
     }
 
     private fun initiallizeUI() {
@@ -262,7 +259,7 @@ class DocumentType : AppCompatActivity() {
     }
 
     private fun doesDataTypeExists(name: String): Boolean {
-        Vault.get(this).recordTypes.forEach { t ->
+        Vault.get(this).documents.forEach { t ->
             if(t.name.equals(name, ignoreCase = true)) {
                 return true
             }
@@ -273,8 +270,8 @@ class DocumentType : AppCompatActivity() {
     private fun createDataType(name: String) {
         if(!createDataType_dataCheck(name))
             return
-        val dataCollection = Vault.get(this).recordTypes
-        val dataTypeCreated = RecordType(name)
+        val dataCollection = Vault.get(this).documents
+        val dataTypeCreated = Document(name)
         dataTypeCreated.questions = ArrayList()
         dataCollection.add(dataTypeCreated)
         Vault.write(this, Vault.password)
@@ -295,10 +292,10 @@ class DocumentType : AppCompatActivity() {
         return true
     }
 
-    private fun goToViewRecordTypeRecords(recordType: RecordType) {
+    private fun goToViewRecordTypeRecords(document: Document) {
         val myIntent = Intent(this, MoneyBack::class.java)
         val bundle = Bundle()
-        bundle.putString("dataTypeToConfigure", recordType.name)
+        bundle.putString("dataTypeToConfigure", document.name)
         myIntent.putExtras(bundle)
         this.startActivity(myIntent)
     }
@@ -307,10 +304,10 @@ class DocumentType : AppCompatActivity() {
 
     }
 
-    private fun goToConfigureActivity(recordType: RecordType) {
+    private fun goToConfigureActivity(document: Document) {
         val myIntent = Intent(this, CustomizeRecordTypes::class.java)
         val bundle = Bundle()
-        bundle.putString("dataTypeToConfigure", recordType.name)
+        bundle.putString("dataTypeToConfigure", document.name)
         myIntent.putExtras(bundle)
         this.startActivity(myIntent)
     }

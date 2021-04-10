@@ -12,7 +12,7 @@ import com.prasunmondal.tech4docs.CardManager
 import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.enums.CardType
 import com.prasunmondal.tech4docs.enums.CardsProvider
-import com.prasunmondal.tech4docs.models.RecordType
+import com.prasunmondal.tech4docs.models.Document
 import com.prasunmondal.tech4docs.xModels.AttributeMetadata
 import com.prasunmondal.tech4docs.xModels.Cards
 
@@ -30,7 +30,7 @@ class ActivityAddCards : AppCompatActivity() {
     lateinit var editName: EditText
 
 
-    var card = RecordType("")
+    var card = Document("")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

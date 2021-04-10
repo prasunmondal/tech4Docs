@@ -13,10 +13,10 @@ import java.io.Serializable
 import javax.crypto.BadPaddingException
 
 class Vault : Serializable {
-    var recordTypes: ArrayList<RecordType>
+    var documents: ArrayList<Document>
 
     private constructor(context: Context, password: String) {
-        this.recordTypes = mutableListOf<RecordType>() as ArrayList<RecordType>
+        this.documents = mutableListOf<Document>() as ArrayList<Document>
     }
 
     companion object {

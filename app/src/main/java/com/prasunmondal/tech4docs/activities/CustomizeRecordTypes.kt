@@ -18,13 +18,13 @@ import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.enums.AnswerType
 import com.prasunmondal.tech4docs.enums.HideLevel
 import com.prasunmondal.tech4docs.models.Question
-import com.prasunmondal.tech4docs.models.RecordType
+import com.prasunmondal.tech4docs.models.Document
 import com.prasunmondal.tech4docs.models.Vault
 
 
 class CustomizeRecordTypes : AppCompatActivity() {
 
-    lateinit var recordType: RecordType
+    lateinit var document: Document
     lateinit var questionInput: EditText
     lateinit var answerType: AutoCompleteTextView
 
@@ -66,7 +66,7 @@ class CustomizeRecordTypes : AppCompatActivity() {
         val bundle = intent.extras
         assert(bundle != null)
         var dataTypeID = bundle!!.getString("dataTypeToConfigure")!!
-        recordType = RecordType.getRecordTypeById(this, dataTypeID)
+        document = Document.getRecordTypeById(this, dataTypeID)
     }
 
     private fun displayLines() {
@@ -74,7 +74,7 @@ class CustomizeRecordTypes : AppCompatActivity() {
         layout.setPadding(10, 10, 10, 10)
         layout.removeAllViews()
 
-        this.recordType.questions.forEach { c ->
+        this.document.questions.forEach { c ->
             addLineInUI(layout, c.answerType.toString() + " (" + c.sequenceNo + ")", c.question)
         }
     }
@@ -114,10 +114,10 @@ class CustomizeRecordTypes : AppCompatActivity() {
     }
 
     fun createNewDataRow(view: View) {
-        if (recordType.questions == null)
-            recordType.questions = mutableListOf<Question>() as ArrayList<Question>
-        var id = recordType.questions.size.toString()
-        recordType.questions.add(Question(id, questionInput.text.toString(), AnswerType.valueOf("STRING"), HideLevel.NO_HIDE, true, id.toInt()))
+        if (document.questions == null)
+            document.questions = mutableListOf<Question>() as ArrayList<Question>
+        var id = document.questions.size.toString()
+        document.questions.add(Question(id, questionInput.text.toString(), AnswerType.valueOf("STRING"), HideLevel.NO_HIDE, true, id.toInt()))
         Vault.write(this, Vault.password)
         displayLines()
     }

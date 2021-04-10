@@ -6,13 +6,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.R
-import com.prasunmondal.tech4docs.models.QuesAns
-import com.prasunmondal.tech4docs.models.RecordType
+import com.prasunmondal.tech4docs.models.Data
+import com.prasunmondal.tech4docs.models.Document
 import com.prasunmondal.tech4docs.models.Vault
 
 class MoneyBack : AppCompatActivity() {
 
-    private lateinit var recordType: RecordType
+    private lateinit var document: Document
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,18 +26,18 @@ class MoneyBack : AppCompatActivity() {
         val bundle = intent.extras
         assert(bundle != null)
         var dataTypeID = bundle!!.getString("dataTypeToConfigure")!!
-        recordType = RecordType.getRecordTypeById(this, dataTypeID)
+        document = Document.getRecordTypeById(this, dataTypeID)
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun addLineInUI(layout: LinearLayout, quesAns: QuesAns) {
+    private fun addLineInUI(layout: LinearLayout, data: Data) {
         var horizontalLayout = LinearLayout(this)
         horizontalLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         horizontalLayout.orientation = LinearLayout.HORIZONTAL
 
         var dataTypeName = TextView(this)
         dataTypeName.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        dataTypeName.text = quesAns.questionID
+        dataTypeName.text = data.questionID
         dataTypeName.setPadding(20, 40, 20, 10)
         dataTypeName.setBackgroundColor(R.color.black)
         dataTypeName.setBackgroundResource(R.color.white)
@@ -46,7 +46,7 @@ class MoneyBack : AppCompatActivity() {
         }
 
         var editDataType = TextView(this)
-        editDataType.text = quesAns.answer.answer
+        editDataType.text = data.answer.answer
         editDataType.setPadding(20, 40, 20, 10)
         editDataType.setBackgroundColor(R.color.black)
         editDataType.setBackgroundResource(R.color.white)
@@ -64,7 +64,7 @@ class MoneyBack : AppCompatActivity() {
         layout.setPadding(10, 10, 10, 10)
         layout.removeAllViews()
 
-        Vault.get(this).recordTypes[0].records.forEach { c ->
+        Vault.get(this).documents[0].records.forEach { c ->
 //            println("tttttttttttttttt")
             println(c);
             addLineInUI(layout, c)

@@ -3,16 +3,16 @@ package com.prasunmondal.tech4docs.models
 import android.content.Context
 import java.io.Serializable
 
-class RecordType : Serializable {
+class Document : Serializable {
     var id: String
     var name: String
     lateinit var questions: ArrayList<Question>
-    var records: ArrayList<QuesAns>
+    var records: ArrayList<Data>
 
     constructor(name: String) {
         this.id = generateID()
         this.name = name
-        this.records = arrayListOf(QuesAns("31", Answer("dkjfbnlsjv")))
+        this.records = arrayListOf(Data("31", Answer("dkjfbnlsjv")))
     }
 
     private fun generateID(): String {
@@ -21,8 +21,8 @@ class RecordType : Serializable {
 
     //    var attributes = mutableListOf<AttributeMetadata>()
     companion object {
-        fun getRecordTypeById(context: Context, id: String): RecordType {
-            Vault.get(context).recordTypes.forEach { c ->
+        fun getRecordTypeById(context: Context, id: String): Document {
+            Vault.get(context).documents.forEach { c ->
                 if (id == c.name)
                     return c
             }
