@@ -5,7 +5,7 @@ import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.operations.DataFile
 
 class DataNode: Node {
-    var data: Map<Question, String> = mutableMapOf()
+    var data: MutableMap<Question, String> = mutableMapOf()
 
     constructor(context: Context, name: String, parentContainerNode: ContainerNode) {
         this.name = name
