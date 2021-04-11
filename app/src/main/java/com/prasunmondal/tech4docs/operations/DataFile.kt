@@ -13,7 +13,7 @@ class DataFile {
     companion object {
         fun exists(context: Context): Boolean {
             return try {
-                FileIO().ReadBytesFromFile(context, Constants.FILENAME_PHONEBOOK)
+                FileIO().ReadBytesFromFile(context, Constants.VAULT_DATA_STORE)
                 Applog.info("return", true, Throwable())
                 true
             } catch (e: FileNotFoundException) {
@@ -26,7 +26,7 @@ class DataFile {
         fun read(context: Context, key: String): Vault? {
             // read the vault from the file and decrypt it!
             try {
-                var beforeDecoding = FileIO().ReadBytesFromFile(context, Constants.FILENAME_PHONEBOOK)
+                var beforeDecoding = FileIO().ReadBytesFromFile(context, Constants.VAULT_DATA_STORE)
                 var removePadding = DEncryption.removePadding(beforeDecoding)
                 var afterDecoding = DEncryption.decodeFile(removePadding, key)!!
                 var vault = DEncryption.byteArrayToObject(afterDecoding) as Vault
@@ -42,11 +42,11 @@ class DataFile {
             var beforeEncoding: ByteArray = DEncryption.objectToByteArray(Vault.instance)
             var afterEncoding: ByteArray = DEncryption.encodeFile(beforeEncoding, key)!!
             var padded = DEncryption.addPadding(afterEncoding)
-            FileIO().WriteBytesToFile(context, Constants.FILENAME_PHONEBOOK, padded)
+            FileIO().WriteBytesToFile(context, Constants.VAULT_DATA_STORE, padded)
         }
 
         fun deleteData(context: Context) {
-            FileIO().deleteFile(context, Constants.FILENAME_PHONEBOOK)
+            FileIO().deleteFile(context, Constants.VAULT_DATA_STORE)
         }
     }
 }

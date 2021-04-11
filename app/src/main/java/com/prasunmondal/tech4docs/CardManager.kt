@@ -18,7 +18,7 @@ class CardManager : Serializable {
         try {
             cardsList = ioObject.ReadObjectFromFile(
                     context,
-                    Constants.FILENAME_PHONEBOOK
+                    Constants.VAULT_DATA_STORE
             ) as ArrayList<Cards>
         } catch (e: Exception) {
             Log.e("AppLog", "No Data Read in CardManager.read")
@@ -29,7 +29,7 @@ class CardManager : Serializable {
     fun write(context: Context) {
         try {
             var ioObject = FileIO()
-            ioObject.WriteObjectToFile(context, Constants.FILENAME_PHONEBOOK, cardsList)
+            ioObject.WriteObjectToFile(context, Constants.VAULT_DATA_STORE, cardsList)
             Log.e("AppLog", "Data Written Successfully.. in CardManager.read")
             Log.e("AppLog", cardsList.toString())
         } catch (e: Exception) {
