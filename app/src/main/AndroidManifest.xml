@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".activities.MoneyBack" />
         <activity android:name=".activities2.PasswordPage"></activity>
-        <activity android:name=".activities.DocumentType" />
+        <activity android:name=".activities.DisplayLevel" />
         <activity android:name=".activities.CustomizeRecordTypes" />
         <activity
             android:name=".activities.ViewCards"

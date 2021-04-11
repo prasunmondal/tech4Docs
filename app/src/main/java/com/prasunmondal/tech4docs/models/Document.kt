@@ -1,6 +1,7 @@
 package com.prasunmondal.tech4docs.models
 
 import android.content.Context
+import com.prasunmondal.tech4docs.models2.ContainerNode
 import com.prasunmondal.tech4docs.models2.Question
 import java.io.Serializable
 
@@ -22,12 +23,12 @@ class Document : Serializable {
 
     //    var attributes = mutableListOf<AttributeMetadata>()
     companion object {
-        fun getRecordTypeById(context: Context, id: String): Document {
-            Vault.get(context).documents.forEach { c ->
-                if (id == c.name)
-                    return c
-            }
-            return null!!
-        }
+//        fun getRecordTypeById(context: Context, id: String): ContainerNode {
+//            Vault.get(context).containerNodes.forEach { c ->
+//                if (id == c.name)
+//                    return c
+//            }
+//            return null!!
+//        }
     }
 }

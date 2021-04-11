@@ -1,7 +1,6 @@
 package com.prasunmondal.tech4docs.models2
 
-class DataNode {
-    lateinit var name: String
+class DataNode: Node {
     lateinit var data:  Map<Question, String>
 
     constructor(name: String) {

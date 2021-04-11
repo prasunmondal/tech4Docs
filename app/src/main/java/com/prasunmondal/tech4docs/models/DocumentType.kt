@@ -21,12 +21,12 @@ class DocumentType : Serializable {
 
     //    var attributes = mutableListOf<AttributeMetadata>()
     companion object {
-        fun getRecordTypeById(context: Context, id: String): Document {
-            Vault.get(context).documents.forEach { c ->
-                if (id == c.name)
-                    return c
-            }
-            return null!!
-        }
+//        fun getRecordTypeById(context: Context, id: String): Document {
+//            Vault.get(context).documents.forEach { c ->
+//                if (id == c.name)
+//                    return c
+//            }
+//            return null!!
+//        }
     }
 }

@@ -34,7 +34,7 @@ class CustomizeRecordTypes : AppCompatActivity() {
         setContentView(R.layout.activity_configure_data_type)
         initiallizeUIElements()
         populateAnswerTypes()
-        fetchReceivedData()
+//        fetchReceivedData()
         addAEditBox()
         displayLines()
     }
@@ -63,12 +63,12 @@ class CustomizeRecordTypes : AppCompatActivity() {
         answerType.setTextColor(Color.RED)
     }
 
-    private fun fetchReceivedData() {
-        val bundle = intent.extras
-        assert(bundle != null)
-        var dataTypeID = bundle!!.getString("dataTypeToConfigure")!!
-        document = Document.getRecordTypeById(this, dataTypeID)
-    }
+//    private fun fetchReceivedData() {
+//        val bundle = intent.extras
+//        assert(bundle != null)
+//        var dataTypeID = bundle!!.getString("dataTypeToConfigure")!!
+//        document = Document.getRecordTypeById(this, dataTypeID)
+//    }
 
     private fun displayLines() {
         var layout = findViewById<LinearLayout>(R.id.create_data_type_dataRowsContainer)

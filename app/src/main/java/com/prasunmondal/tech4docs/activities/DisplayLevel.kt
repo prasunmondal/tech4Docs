@@ -9,37 +9,43 @@ import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.models.Document
 import com.prasunmondal.tech4docs.models.Vault
+import com.prasunmondal.tech4docs.models2.ContainerNode
+import com.prasunmondal.tech4docs.models2.Node
 import com.prasunmondal.tech4docs.operations.DataFile
 
 
-class DocumentType : AppCompatActivity() {
+class DisplayLevel : AppCompatActivity() {
     private lateinit var datatypeNameInput: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_record_type)
         initiallizeUI()
-        displayLines()
+        displayLines(Vault.instance!!.documents as ContainerNode)
 
         // dev
-        createDataType("Debit Card")
-        createDataType("Identification Documents")
-        createDataType("Credit Card")
+//        createDataType("Debit Card")
+//        createDataType("Identification Documents")
+//        createDataType("Credit Card")
 
     }
 
-    private fun displayLines() {
+    private fun displayLines(parentNode: ContainerNode) {
         val layout = findViewById<LinearLayout>(R.id.create_record_type_recordTypeContainer)
         layout.setPadding(10, 10, 10, 10)
         layout.removeAllViews()
 
-        Vault.get(this).documents.forEach { c ->
+        parentNode.containerNodes.forEach { c ->
+            addLineInUI(layout, c)
+        }
+
+        parentNode.dataNodes.forEach { c ->
             addLineInUI(layout, c)
         }
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun addLineInUI(layout: LinearLayout, document: Document) {
+    private fun addLineInUI(layout: LinearLayout, document: Node) {
 
         val horizontalLayout = LinearLayout(this)
         horizontalLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
@@ -242,12 +248,12 @@ class DocumentType : AppCompatActivity() {
         Toast.makeText(this, "Go to view!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun onClickEditDataType(document: Document) {
-        goToConfigureActivity(document)
+    private fun onClickEditDataType(containerNode: Node) {
+        goToConfigureActivity(containerNode)
     }
 
-    private fun onClickDataTypeName(document: Document) {
-        goToViewRecordTypeRecords(document)
+    private fun onClickDataTypeName(containerNode: Node) {
+        goToViewRecordTypeRecords(containerNode)
     }
 
     private fun initiallizeUI() {
@@ -256,11 +262,16 @@ class DocumentType : AppCompatActivity() {
 
     fun onClickCreateRecordType(view: View) {
         val name: String = datatypeNameInput.text.toString()
-        createDataType(name)
+//        createDataType(name)
     }
 
-    private fun doesDataTypeExists(name: String): Boolean {
-        Vault.get(this).documents.forEach { t ->
+    private fun doesDataTypeExists(name: String, parentNode: ContainerNode): Boolean {
+        parentNode.containerNodes.forEach { t ->
+            if(t.name.equals(name, ignoreCase = true)) {
+                return true
+            }
+        }
+        parentNode.dataNodes.forEach { t ->
             if(t.name.equals(name, ignoreCase = true)) {
                 return true
             }
@@ -268,32 +279,32 @@ class DocumentType : AppCompatActivity() {
         return false
     }
 
-    private fun createDataType(name: String) {
-        if(!createDataType_dataCheck(name))
-            return
-        val dataCollection = Vault.get(this).documents
-        val dataTypeCreated = Document(name)
-        dataTypeCreated.questions = ArrayList()
-        dataCollection.add(dataTypeCreated)
-        DataFile.write(this, Vault.password)
-        displayLines()
-        datatypeNameInput.setText("")
-        goToConfigureActivity(dataTypeCreated)
-    }
+//    private fun createDataType(name: String) {
+//        if(!createDataType_dataCheck(name))
+//            return
+//        val dataCollection = Vault.get(this).documents
+//        val dataTypeCreated = ContainerNode(name, null)
+////        dataTypeCreated.questions = ArrayList()
+////        dataCollection.add(dataTypeCreated)
+//        DataFile.write(this, Vault.password)
+//        displayLines()
+//        datatypeNameInput.setText("")
+//        goToConfigureActivity(dataTypeCreated)
+//    }
 
-    private fun createDataType_dataCheck(name: String): Boolean {
-        if(name.isEmpty()) {
-            Toast.makeText(this, "Please Enter the Record Type Name", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        if(doesDataTypeExists(name)) {
-            Toast.makeText(this, "Record Type Exists!", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        return true
-    }
+//    private fun createDataType_dataCheck(name: String): Boolean {
+//        if(name.isEmpty()) {
+//            Toast.makeText(this, "Please Enter the Record Type Name", Toast.LENGTH_SHORT).show()
+//            return false
+//        }
+//        if(doesDataTypeExists(name)) {
+//            Toast.makeText(this, "Record Type Exists!", Toast.LENGTH_SHORT).show()
+//            return false
+//        }
+//        return true
+//    }
 
-    private fun goToViewRecordTypeRecords(document: Document) {
+    private fun goToViewRecordTypeRecords(document: Node) {
         val myIntent = Intent(this, MoneyBack::class.java)
         val bundle = Bundle()
         bundle.putString("dataTypeToConfigure", document.name)
@@ -305,7 +316,7 @@ class DocumentType : AppCompatActivity() {
 
     }
 
-    private fun goToConfigureActivity(document: Document) {
+    private fun goToConfigureActivity(document: Node) {
         val myIntent = Intent(this, CustomizeRecordTypes::class.java)
         val bundle = Bundle()
         bundle.putString("dataTypeToConfigure", document.name)

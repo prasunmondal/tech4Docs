@@ -1,16 +1,18 @@
 package com.prasunmondal.tech4docs.models2
 
-class ContainerNode {
-    lateinit var name: String
+class ContainerNode: Node {
     lateinit var containerNodes: ArrayList<ContainerNode>
-    lateinit var parentContainerNode: ContainerNode
     lateinit var dataNodes:  ArrayList<DataNode>
 
-    constructor(name: String, parentContainerNode: ContainerNode) {
+    constructor(name: String, parentContainerNode: ContainerNode?) {
         this.name = name
         containerNodes = arrayListOf()
         dataNodes = arrayListOf()
-        this.parentContainerNode = parentContainerNode
+        if (parentContainerNode != null) {
+            this.parentContainerNode = parentContainerNode
+        } else {
+            this.parentContainerNode = this
+        }
     }
 
     fun createDataNode(name: String) {

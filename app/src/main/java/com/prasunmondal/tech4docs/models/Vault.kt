@@ -4,17 +4,17 @@ import android.content.Context
 import com.prasunmondal.tech4docs.Exceptions.NoVaultExistsException
 import com.prasunmondal.tech4docs.Exceptions.PasswordComplexityNotMet
 import com.prasunmondal.tech4docs.Exceptions.VaultNotLoaded
+import com.prasunmondal.tech4docs.models2.ContainerNode
+import com.prasunmondal.tech4docs.models2.Node
 import com.prasunmondal.tech4docs.operations.DataFile
 import com.prasunmondal.tech4docs.operations.PasswordManage
 import com.prasunmondal.tech4docs.utils.Applog
 import java.io.Serializable
 
 class Vault : Serializable {
-    var documents: ArrayList<Document>
+    var documents: Node = ContainerNode("Vault", null)
 
-    private constructor(context: Context, password: String) {
-        this.documents = mutableListOf<Document>() as ArrayList<Document>
-    }
+    private constructor(context: Context, password: String)
 
     companion object {
         var password: String = ""
