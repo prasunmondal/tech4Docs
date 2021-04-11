@@ -3,7 +3,6 @@ package com.prasunmondal.tech4docs.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.storage.StorageManager
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -13,11 +12,10 @@ import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.models2.ContainerNode
 import com.prasunmondal.tech4docs.models2.DataNode
 import com.prasunmondal.tech4docs.models2.Node
-import com.prasunmondal.tech4docs.operations.DataFile
 import com.prasunmondal.tech4docs.utils.Applog
 
 
-class DisplayLevel : AppCompatActivity() {
+class ContainerView : AppCompatActivity() {
     private lateinit var datatypeNameInput: EditText
     private var currentLevel = Vault.instance!!.root
 
@@ -352,7 +350,7 @@ class DisplayLevel : AppCompatActivity() {
 //    }
 
     private fun goToViewRecordTypeRecords(document: Node) {
-        val myIntent = Intent(this, MoneyBack::class.java)
+        val myIntent = Intent(this, DataView::class.java)
         val bundle = Bundle()
         bundle.putSerializable("dataTypeToConfigure", document)
         myIntent.putExtras(bundle)

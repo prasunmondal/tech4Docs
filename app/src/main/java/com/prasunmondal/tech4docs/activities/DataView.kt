@@ -10,7 +10,7 @@ import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.models2.ContainerNode
 import com.prasunmondal.tech4docs.models2.DataNode
 
-class MoneyBack : AppCompatActivity() {
+class DataView : AppCompatActivity() {
 
     private lateinit var document: DataNode
 

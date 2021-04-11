@@ -14,10 +14,11 @@ class ContainerNode: Node {
         dataNodes = arrayListOf()
         if (parentContainerNode != null) {
             this.parentContainerNode = parentContainerNode
+            this.parentContainerNode.containerNodes.add(this)
         } else {
             this.parentContainerNode = this
         }
-        parentContainerNode!!.containerNodes.add(this)
+
         DataFile.write(context, Vault.password)
     }
 

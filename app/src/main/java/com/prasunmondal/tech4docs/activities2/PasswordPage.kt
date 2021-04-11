@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.Constants
 import com.prasunmondal.tech4docs.R
-import com.prasunmondal.tech4docs.activities.DisplayLevel
+import com.prasunmondal.tech4docs.activities.ContainerView
 import com.prasunmondal.tech4docs.models.InvalidPasswordException
 import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.operations.DataFile
@@ -129,7 +129,7 @@ class PasswordPage : AppCompatActivity() {
 
     private fun goToCreateRecordTypePage() {
         Vault.password = getInputPassword()
-        val myIntent = Intent(this, DisplayLevel::class.java)
+        val myIntent = Intent(this, ContainerView::class.java)
         this.startActivity(myIntent)
         finish()
     }
