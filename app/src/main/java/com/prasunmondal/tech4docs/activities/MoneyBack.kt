@@ -8,25 +8,25 @@ import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.models2.ContainerNode
+import com.prasunmondal.tech4docs.models2.DataNode
 
 class MoneyBack : AppCompatActivity() {
 
-    private lateinit var document: ContainerNode
+    private lateinit var document: DataNode
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_record_type)
 
-//        fetchReceivedData()
+        fetchReceivedData()
         displayRecords()
     }
 
-//    private fun fetchReceivedData() {
-//        val bundle = intent.extras
-//        assert(bundle != null)
-//        var dataTypeID = bundle!!.getString("dataTypeToConfigure")!!
-//        document = Document.getRecordTypeById(this, dataTypeID)
-//    }
+    private fun fetchReceivedData() {
+        val bundle = intent.extras
+        assert(bundle != null)
+        var document = bundle!!.getSerializable("dataTypeToConfigure")!! as DataNode
+    }
 
     @SuppressLint("ResourceAsColor")
     private fun addLineInUI(layout: LinearLayout, data: ContainerNode) {

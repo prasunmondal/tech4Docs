@@ -5,17 +5,17 @@ import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.operations.DataFile
 
 class DataNode: Node {
-    lateinit var data:  Map<Question, String>
+    var data:  Map<Question, String>
 
     constructor(context: Context, name: String, parentContainerNode: ContainerNode) {
         this.name = name
         this.data = mutableMapOf()
         this.parentContainerNode = parentContainerNode
+//        parentContainerNode.dataNodes.add(this)
         DataFile.write(context, Vault.password)
     }
 
-    constructor(name: String, data: Map<Question, String>) {
-        this.name = name
-        this.data = data
+    override fun isDataNode(): Boolean {
+        return true
     }
 }

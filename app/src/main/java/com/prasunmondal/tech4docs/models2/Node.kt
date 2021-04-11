@@ -5,11 +5,11 @@ import java.io.Serializable
 open class Node: Serializable {
     lateinit var name: String
     lateinit var parentContainerNode: ContainerNode
-    fun isDataNode(): Boolean {
+    open fun isDataNode(): Boolean {
         return false
     }
 
-    fun isContainerNode(): Boolean {
+    open fun isContainerNode(): Boolean {
         return false
     }
 }

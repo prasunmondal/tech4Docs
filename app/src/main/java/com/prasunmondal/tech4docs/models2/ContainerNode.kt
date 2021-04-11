@@ -24,4 +24,8 @@ class ContainerNode: Node {
 //    fun createDataNode(name: String) {
 //        dataNodes.add(DataNode(name))
 //    }
+
+    override fun isContainerNode(): Boolean {
+        return true
+    }
 }

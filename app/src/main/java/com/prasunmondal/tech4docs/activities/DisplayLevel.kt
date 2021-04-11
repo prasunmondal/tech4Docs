@@ -3,6 +3,7 @@ package com.prasunmondal.tech4docs.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.storage.StorageManager
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.models2.ContainerNode
 import com.prasunmondal.tech4docs.models2.DataNode
 import com.prasunmondal.tech4docs.models2.Node
+import com.prasunmondal.tech4docs.operations.DataFile
 import com.prasunmondal.tech4docs.utils.Applog
 
 
@@ -76,15 +78,19 @@ class DisplayLevel : AppCompatActivity() {
         dataTypeName.setOnClickListener {
             onClickNode(node)
         }
+        horizontalLayout.addView(dataTypeName)
 
-        val editDataType = TextView(this)
-        editDataType.text = "✎"
-        editDataType.setPadding(10, 10, 20, 10)
-        editDataType.setTextColor(resources.getColor(R.color.white))
+        if(node.isContainerNode()) {
+            val editDataType = TextView(this)
+            editDataType.text = "✎"
+            editDataType.setPadding(10, 10, 20, 10)
+            editDataType.setTextColor(resources.getColor(R.color.white))
 //        editDataType.setBackgroundColor(R.color.black)
 //        editDataType.setBackgroundResource(R.color.white)
-        editDataType.setOnClickListener {
-            onClickEditDataType(node)
+            editDataType.setOnClickListener {
+                onClickEditDataType(node)
+            }
+            horizontalLayout.addView(editDataType)
         }
 //
 //        val addDataTypeRecordsView = TextView(this)
@@ -96,8 +102,8 @@ class DisplayLevel : AppCompatActivity() {
 //            onClickAddDataTypeRecordsView(recordType)
 //        }
 
-        horizontalLayout.addView(dataTypeName)
-        horizontalLayout.addView(editDataType)
+
+
 //        horizontalLayout.addView(addDataTypeRecordsView)
         layout.addView(horizontalLayout)
     }
@@ -266,8 +272,12 @@ class DisplayLevel : AppCompatActivity() {
 
     private fun onClickNode(node: Node) {
         Applog.startMethod(Throwable())
-        currentLevel = node as ContainerNode
-        displayLines()
+        if(node.isContainerNode()) {
+            currentLevel = node as ContainerNode
+            displayLines()
+        } else {
+            goToViewRecordTypeRecords(node)
+        }
     }
 
     private fun initiallizeUI() {
@@ -323,6 +333,7 @@ class DisplayLevel : AppCompatActivity() {
         //        dataCollection.add(dataTypeCreated)
 //
         currentLevel.dataNodes.add(DataNode(this, name, currentLevel))
+        DataFile.write(this, Vault.password)
         displayLines()
         datatypeNameInput.setText("")
 //            goToConfigureActivity(dataTypeCreated)
@@ -343,7 +354,7 @@ class DisplayLevel : AppCompatActivity() {
     private fun goToViewRecordTypeRecords(document: Node) {
         val myIntent = Intent(this, MoneyBack::class.java)
         val bundle = Bundle()
-        bundle.putString("dataTypeToConfigure", document.name)
+        bundle.putSerializable("dataTypeToConfigure", document)
         myIntent.putExtras(bundle)
         this.startActivity(myIntent)
     }
