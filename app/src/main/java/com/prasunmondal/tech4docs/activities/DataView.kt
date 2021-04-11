@@ -2,13 +2,13 @@ package com.prasunmondal.tech4docs.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.R
-import com.prasunmondal.tech4docs.models.Vault
-import com.prasunmondal.tech4docs.models2.ContainerNode
 import com.prasunmondal.tech4docs.models2.DataNode
+import com.prasunmondal.tech4docs.models2.Question
 
 class DataView : AppCompatActivity() {
 
@@ -25,18 +25,18 @@ class DataView : AppCompatActivity() {
     private fun fetchReceivedData() {
         val bundle = intent.extras
         assert(bundle != null)
-        var document = bundle!!.getSerializable("dataTypeToConfigure")!! as DataNode
+        document = bundle!!.getSerializable("dataNode")!! as DataNode
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun addLineInUI(layout: LinearLayout, data: ContainerNode) {
+    private fun addLineInUI(layout: LinearLayout, data: Map.Entry<Question, String>) {
         var horizontalLayout = LinearLayout(this)
         horizontalLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         horizontalLayout.orientation = LinearLayout.HORIZONTAL
 
         var dataTypeName = TextView(this)
         dataTypeName.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        dataTypeName.text = data.name
+        dataTypeName.text = data.key.toString()
         dataTypeName.setPadding(20, 40, 20, 10)
         dataTypeName.setBackgroundColor(R.color.black)
         dataTypeName.setBackgroundResource(R.color.white)
@@ -45,7 +45,7 @@ class DataView : AppCompatActivity() {
         }
 
         var editDataType = TextView(this)
-        editDataType.text = data.name
+        editDataType.text = data.value
         editDataType.setPadding(20, 40, 20, 10)
         editDataType.setBackgroundColor(R.color.black)
         editDataType.setBackgroundResource(R.color.white)
@@ -63,10 +63,14 @@ class DataView : AppCompatActivity() {
         layout.setPadding(10, 10, 10, 10)
         layout.removeAllViews()
 
-        Vault.get(this).root.parentContainerNode.containerNodes.forEach { c ->
+        document.data.forEach { c ->
 //            println("tttttttttttttttt")
             println(c);
             addLineInUI(layout, c)
         }
+    }
+
+    fun onClickAddData(view: View) {
+
     }
 }

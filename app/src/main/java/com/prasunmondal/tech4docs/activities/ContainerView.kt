@@ -21,7 +21,7 @@ class ContainerView : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_record_type)
+        setContentView(R.layout.activity_container_view)
         initiallizeUI()
         displayLines()
     }
@@ -261,7 +261,7 @@ class ContainerView : AppCompatActivity() {
             currentLevel = node as ContainerNode
             displayLines()
         } else {
-            goToViewRecordTypeRecords(node)
+            goToDataView(node)
         }
     }
 
@@ -321,10 +321,10 @@ class ContainerView : AppCompatActivity() {
         return true
     }
 
-    private fun goToViewRecordTypeRecords(document: Node) {
+    private fun goToDataView(dataNode: Node) {
         val myIntent = Intent(this, DataView::class.java)
         val bundle = Bundle()
-        bundle.putSerializable("dataTypeToConfigure", document)
+        bundle.putSerializable("dataNode", dataNode)
         myIntent.putExtras(bundle)
         this.startActivity(myIntent)
     }
