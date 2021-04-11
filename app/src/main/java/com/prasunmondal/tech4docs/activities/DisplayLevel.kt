@@ -10,6 +10,7 @@ import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.models.Document
 import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.models2.ContainerNode
+import com.prasunmondal.tech4docs.models2.DataNode
 import com.prasunmondal.tech4docs.models2.Node
 import com.prasunmondal.tech4docs.utils.Applog
 
@@ -278,6 +279,11 @@ class DisplayLevel : AppCompatActivity() {
         createNewContainer(name, currentLevel)
     }
 
+    fun onClickCreateDataNode(view: View) {
+        val name: String = datatypeNameInput.text.toString()
+        createNewDataNode(name, currentLevel)
+    }
+
     private fun doesDataTypeExists(name: String, parentNode: ContainerNode): Boolean {
         parentNode.containerNodes.forEach { t ->
             if(t.name.equals(name, ignoreCase = true)) {
@@ -292,6 +298,8 @@ class DisplayLevel : AppCompatActivity() {
         return false
     }
 
+
+
         private fun createNewContainer(name: String, parentNode: ContainerNode) {
     //        if(!createDataType_dataCheck(name))
     //            return
@@ -300,9 +308,23 @@ class DisplayLevel : AppCompatActivity() {
     //        dataTypeCreated.questions = ArrayList()
     //        dataCollection.add(dataTypeCreated)
 //
-            (Vault.instance!!.root as ContainerNode).containerNodes.add(ContainerNode(this, name, parentNode))
+            currentLevel.containerNodes.add(ContainerNode(this, name, parentNode))
             displayLines()
             datatypeNameInput.setText("")
+//            goToConfigureActivity(dataTypeCreated)
+    }
+
+    private fun createNewDataNode(name: String, parentNode: ContainerNode) {
+        //        if(!createDataType_dataCheck(name))
+        //            return
+//            val dataCollection = Vault.get(this).root
+//            val dataTypeCreated = ContainerNode(name, null)
+        //        dataTypeCreated.questions = ArrayList()
+        //        dataCollection.add(dataTypeCreated)
+//
+        currentLevel.dataNodes.add(DataNode(this, name, currentLevel))
+        displayLines()
+        datatypeNameInput.setText("")
 //            goToConfigureActivity(dataTypeCreated)
     }
 
@@ -336,5 +358,12 @@ class DisplayLevel : AppCompatActivity() {
         bundle.putString("dataTypeToConfigure", document.name)
         myIntent.putExtras(bundle)
         this.startActivity(myIntent)
+    }
+
+    override fun onBackPressed() {
+        if(currentLevel == Vault.instance!!.root)
+            super.onBackPressed()
+        currentLevel = currentLevel.parentContainerNode
+        displayLines()
     }
 }
