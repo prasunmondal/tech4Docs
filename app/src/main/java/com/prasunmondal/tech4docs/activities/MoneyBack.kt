@@ -6,7 +6,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.R
-import com.prasunmondal.tech4docs.models.Document
 import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.models2.ContainerNode
 
@@ -64,7 +63,7 @@ class MoneyBack : AppCompatActivity() {
         layout.setPadding(10, 10, 10, 10)
         layout.removeAllViews()
 
-        Vault.get(this).documents.parentContainerNode.containerNodes.forEach { c ->
+        Vault.get(this).root.parentContainerNode.containerNodes.forEach { c ->
 //            println("tttttttttttttttt")
             println(c);
             addLineInUI(layout, c)

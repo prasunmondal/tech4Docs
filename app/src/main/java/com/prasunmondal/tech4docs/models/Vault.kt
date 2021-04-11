@@ -12,9 +12,10 @@ import com.prasunmondal.tech4docs.utils.Applog
 import java.io.Serializable
 
 class Vault : Serializable {
-    var documents: Node = ContainerNode("Vault", null)
-
-    private constructor(context: Context, password: String)
+    var root: ContainerNode
+    private constructor(context: Context, password: String) {
+        root = ContainerNode(context, "Vault", null)
+    }
 
     companion object {
         var password: String = ""

@@ -11,41 +11,52 @@ import com.prasunmondal.tech4docs.models.Document
 import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.models2.ContainerNode
 import com.prasunmondal.tech4docs.models2.Node
-import com.prasunmondal.tech4docs.operations.DataFile
+import com.prasunmondal.tech4docs.utils.Applog
 
 
 class DisplayLevel : AppCompatActivity() {
     private lateinit var datatypeNameInput: EditText
+    private var currentLevel = Vault.instance!!.root
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_record_type)
+
+//        (Vault.instance!!.root as ContainerNode).containerNodes.add(ContainerNode(this,"Container1", null))
+//        (Vault.instance!!.root as ContainerNode).containerNodes.add(ContainerNode("Container2", null))
+//        (Vault.instance!!.root as ContainerNode).containerNodes.add(ContainerNode("Container3", null))
+
+
         initiallizeUI()
-        displayLines(Vault.instance!!.documents as ContainerNode)
+        displayLines()
 
         // dev
 //        createDataType("Debit Card")
 //        createDataType("Identification Documents")
 //        createDataType("Credit Card")
 
+
+
     }
 
-    private fun displayLines(parentNode: ContainerNode) {
+    private fun displayLines() {
         val layout = findViewById<LinearLayout>(R.id.create_record_type_recordTypeContainer)
         layout.setPadding(10, 10, 10, 10)
         layout.removeAllViews()
 
-        parentNode.containerNodes.forEach { c ->
+        Applog.info("parentNode: " + currentLevel.name ,Throwable())
+
+        currentLevel.containerNodes.forEach { c ->
             addLineInUI(layout, c)
         }
 
-        parentNode.dataNodes.forEach { c ->
+        currentLevel.dataNodes.forEach { c ->
             addLineInUI(layout, c)
         }
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun addLineInUI(layout: LinearLayout, document: Node) {
+    private fun addLineInUI(layout: LinearLayout, node: Node) {
 
         val horizontalLayout = LinearLayout(this)
         horizontalLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
@@ -56,13 +67,13 @@ class DisplayLevel : AppCompatActivity() {
 
         val dataTypeName = TextView(this)
         dataTypeName.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        dataTypeName.text = document.name
+        dataTypeName.text = node.name
         dataTypeName.setPadding(10, 10, 20, 10)
         dataTypeName.setBackgroundColor(R.color.black)
 //        dataTypeName.setBackgroundResource(R.color.white)
         dataTypeName.setTextColor(resources.getColor(R.color.white))
         dataTypeName.setOnClickListener {
-            onClickDataTypeName(document)
+            onClickNode(node)
         }
 
         val editDataType = TextView(this)
@@ -72,7 +83,7 @@ class DisplayLevel : AppCompatActivity() {
 //        editDataType.setBackgroundColor(R.color.black)
 //        editDataType.setBackgroundResource(R.color.white)
         editDataType.setOnClickListener {
-            onClickEditDataType(document)
+            onClickEditDataType(node)
         }
 //
 //        val addDataTypeRecordsView = TextView(this)
@@ -252,17 +263,19 @@ class DisplayLevel : AppCompatActivity() {
         goToConfigureActivity(containerNode)
     }
 
-    private fun onClickDataTypeName(containerNode: Node) {
-        goToViewRecordTypeRecords(containerNode)
+    private fun onClickNode(node: Node) {
+        Applog.startMethod(Throwable())
+        currentLevel = node as ContainerNode
+        displayLines()
     }
 
     private fun initiallizeUI() {
         datatypeNameInput = findViewById(R.id.create_data_type_edittext_datatype_name)
     }
 
-    fun onClickCreateRecordType(view: View) {
+    fun onClickCreateContainer(view: View) {
         val name: String = datatypeNameInput.text.toString()
-//        createDataType(name)
+        createNewContainer(name, currentLevel)
     }
 
     private fun doesDataTypeExists(name: String, parentNode: ContainerNode): Boolean {
@@ -279,18 +292,19 @@ class DisplayLevel : AppCompatActivity() {
         return false
     }
 
-//    private fun createDataType(name: String) {
-//        if(!createDataType_dataCheck(name))
-//            return
-//        val dataCollection = Vault.get(this).documents
-//        val dataTypeCreated = ContainerNode(name, null)
-////        dataTypeCreated.questions = ArrayList()
-////        dataCollection.add(dataTypeCreated)
-//        DataFile.write(this, Vault.password)
-//        displayLines()
-//        datatypeNameInput.setText("")
-//        goToConfigureActivity(dataTypeCreated)
-//    }
+        private fun createNewContainer(name: String, parentNode: ContainerNode) {
+    //        if(!createDataType_dataCheck(name))
+    //            return
+//            val dataCollection = Vault.get(this).root
+//            val dataTypeCreated = ContainerNode(name, null)
+    //        dataTypeCreated.questions = ArrayList()
+    //        dataCollection.add(dataTypeCreated)
+//
+            (Vault.instance!!.root as ContainerNode).containerNodes.add(ContainerNode(this, name, parentNode))
+            displayLines()
+            datatypeNameInput.setText("")
+//            goToConfigureActivity(dataTypeCreated)
+    }
 
 //    private fun createDataType_dataCheck(name: String): Boolean {
 //        if(name.isEmpty()) {
