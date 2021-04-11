@@ -22,22 +22,8 @@ class ContainerView : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_record_type)
-
-//        (Vault.instance!!.root as ContainerNode).containerNodes.add(ContainerNode(this,"Container1", null))
-//        (Vault.instance!!.root as ContainerNode).containerNodes.add(ContainerNode("Container2", null))
-//        (Vault.instance!!.root as ContainerNode).containerNodes.add(ContainerNode("Container3", null))
-
-
         initiallizeUI()
         displayLines()
-
-        // dev
-//        createDataType("Debit Card")
-//        createDataType("Identification Documents")
-//        createDataType("Credit Card")
-
-
-
     }
 
     private fun displayLines() {
@@ -63,31 +49,32 @@ class ContainerView : AppCompatActivity() {
         horizontalLayout.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         horizontalLayout.orientation = LinearLayout.HORIZONTAL
         horizontalLayout.setBackgroundColor(R.color.black)
-        horizontalLayout.setPadding(10,50,10,50)
+        horizontalLayout.setPadding(10,30,10,30)
+        horizontalLayout.setOnClickListener {
+            onClickNode(node)
+        }
 
 
         val dataTypeName = TextView(this)
         dataTypeName.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         dataTypeName.text = node.name
-        dataTypeName.setPadding(10, 10, 20, 10)
+//        dataTypeName.setPadding(10, 5, 20, 5)
         dataTypeName.setBackgroundColor(R.color.black)
+        dataTypeName.textSize = 20F
 //        dataTypeName.setBackgroundResource(R.color.white)
         dataTypeName.setTextColor(resources.getColor(R.color.white))
-        dataTypeName.setOnClickListener {
-            onClickNode(node)
-        }
         horizontalLayout.addView(dataTypeName)
 
         if(node.isContainerNode()) {
             val editDataType = TextView(this)
-            editDataType.text = "✎"
-            editDataType.setPadding(10, 10, 20, 10)
+            editDataType.text = "➤"
+            editDataType.setPadding(20, 0, 0, 0)
             editDataType.setTextColor(resources.getColor(R.color.white))
 //        editDataType.setBackgroundColor(R.color.black)
 //        editDataType.setBackgroundResource(R.color.white)
-            editDataType.setOnClickListener {
-                onClickEditDataType(node)
-            }
+//            editDataType.setOnClickListener {
+//                onClickEditDataType(node)
+//            }
             horizontalLayout.addView(editDataType)
         }
 //
@@ -284,21 +271,21 @@ class ContainerView : AppCompatActivity() {
 
     fun onClickCreateContainer(view: View) {
         val name: String = datatypeNameInput.text.toString()
-        createNewContainer(name, currentLevel)
+        createNewContainer(name)
     }
 
     fun onClickCreateDataNode(view: View) {
         val name: String = datatypeNameInput.text.toString()
-        createNewDataNode(name, currentLevel)
+        createNewDataNode(name)
     }
 
-    private fun doesDataTypeExists(name: String, parentNode: ContainerNode): Boolean {
-        parentNode.containerNodes.forEach { t ->
+    private fun doesDataTypeExists(name: String): Boolean {
+        currentLevel.containerNodes.forEach { t ->
             if(t.name.equals(name, ignoreCase = true)) {
                 return true
             }
         }
-        parentNode.dataNodes.forEach { t ->
+        currentLevel.dataNodes.forEach { t ->
             if(t.name.equals(name, ignoreCase = true)) {
                 return true
             }
@@ -306,48 +293,33 @@ class ContainerView : AppCompatActivity() {
         return false
     }
 
-
-
-        private fun createNewContainer(name: String, parentNode: ContainerNode) {
-    //        if(!createDataType_dataCheck(name))
-    //            return
-//            val dataCollection = Vault.get(this).root
-//            val dataTypeCreated = ContainerNode(name, null)
-    //        dataTypeCreated.questions = ArrayList()
-    //        dataCollection.add(dataTypeCreated)
-//
-            ContainerNode(this, name, parentNode)
+    private fun createNewContainer(name: String) {
+            if(!isValidData(name))
+                return
+            ContainerNode(this, name, currentLevel)
             displayLines()
             datatypeNameInput.setText("")
-//            goToConfigureActivity(dataTypeCreated)
     }
 
-    private fun createNewDataNode(name: String, parentNode: ContainerNode) {
-        //        if(!createDataType_dataCheck(name))
-        //            return
-//            val dataCollection = Vault.get(this).root
-//            val dataTypeCreated = ContainerNode(name, null)
-        //        dataTypeCreated.questions = ArrayList()
-        //        dataCollection.add(dataTypeCreated)
-//
+    private fun createNewDataNode(name: String) {
+        if(!isValidData(name))
+            return
         DataNode(this, name, currentLevel)
-//        DataFile.write(this, Vault.password)
         displayLines()
         datatypeNameInput.setText("")
-//            goToConfigureActivity(dataTypeCreated)
     }
 
-//    private fun createDataType_dataCheck(name: String): Boolean {
-//        if(name.isEmpty()) {
-//            Toast.makeText(this, "Please Enter the Record Type Name", Toast.LENGTH_SHORT).show()
-//            return false
-//        }
-//        if(doesDataTypeExists(name)) {
-//            Toast.makeText(this, "Record Type Exists!", Toast.LENGTH_SHORT).show()
-//            return false
-//        }
-//        return true
-//    }
+    private fun isValidData(name: String): Boolean {
+        if(name.isEmpty()) {
+            Toast.makeText(this, "Please Enter the Record Type Name", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if(doesDataTypeExists(name)) {
+            Toast.makeText(this, "Record Type Exists!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
 
     private fun goToViewRecordTypeRecords(document: Node) {
         val myIntent = Intent(this, DataView::class.java)
