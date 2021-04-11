@@ -12,6 +12,7 @@ import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.models2.ContainerNode
 import com.prasunmondal.tech4docs.models2.DataNode
 import com.prasunmondal.tech4docs.models2.Node
+import com.prasunmondal.tech4docs.models2.SessionDataManager
 import com.prasunmondal.tech4docs.utils.Applog
 
 
@@ -261,7 +262,7 @@ class ContainerView : AppCompatActivity() {
             currentLevel = node as ContainerNode
             displayLines()
         } else {
-            goToDataView(node)
+            goToDataView(node as DataNode)
         }
     }
 
@@ -321,9 +322,10 @@ class ContainerView : AppCompatActivity() {
         return true
     }
 
-    private fun goToDataView(dataNode: Node) {
+    private fun goToDataView(dataNode: DataNode) {
         val myIntent = Intent(this, DataView::class.java)
         val bundle = Bundle()
+        SessionDataManager.dataNode = dataNode
         bundle.putSerializable("dataNode", dataNode)
         myIntent.putExtras(bundle)
         this.startActivity(myIntent)

@@ -5,7 +5,7 @@ import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.operations.DataFile
 
 class DataNode: Node {
-    var data: MutableMap<Question, String> = mutableMapOf()
+    var data: MutableMap<String, String> = mutableMapOf()
 
     override fun toString(): String {
         return "data: $data"
