@@ -42,7 +42,7 @@ public class FileIO {
 
     public void WriteBytesToFile(Context context, String fileName, byte[] bytes) throws IOException {
         File path = context.getFilesDir();
-        File file = new File(path, fileName + ".txt");
+        File file = new File(path, fileName);
         try {
             Applog.Companion.info("bytes", bytes, new Throwable());
             FileOutputStream fos = context.openFileOutput(file.getName(), Context.MODE_PRIVATE);
@@ -60,7 +60,7 @@ public class FileIO {
 
     public byte[] ReadBytesFromFile(Context context, String fileName) throws Exception {
         File path = context.getFilesDir();
-        File file = new File(path, fileName + ".txt");
+        File file = new File(path, fileName);
         try {
 //            File file = new File(fileName);
             int size = (int) file.length();
@@ -90,7 +90,7 @@ public class FileIO {
 
     public boolean deleteFile(Context context, String fileName) throws Exception {
         File path = context.getFilesDir();
-        File file = new File(path, fileName + ".txt");
+        File file = new File(path, fileName);
         return file.delete();
     }
 

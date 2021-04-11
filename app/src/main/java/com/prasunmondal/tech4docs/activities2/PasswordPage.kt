@@ -1,6 +1,9 @@
 package com.prasunmondal.tech4docs.activities2
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -15,7 +18,9 @@ import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.operations.DataFile
 import com.prasunmondal.tech4docs.operations.PasswordManage
 import com.prasunmondal.tech4docs.utils.Applog
+import java.io.InvalidClassException
 import javax.crypto.IllegalBlockSizeException
+
 
 class PasswordPage : AppCompatActivity() {
 
@@ -94,12 +99,36 @@ class PasswordPage : AppCompatActivity() {
             handleInvalidPassword()
         } catch (e: IllegalBlockSizeException) {
             Applog.info("Vault object outdated wrt recent Vault class.", Throwable())
-            DataFile.deleteData(this)
-            Toast.makeText(this, "Vault object outdated w.r.t recent Vault class.\nData Deleted", Toast.LENGTH_SHORT).show()
-
-            TODO("Remove the loadAVault!")
-            loadAVault(password)
+            Toast.makeText(
+                this,
+                "Vault object outdated w.r.t recent Vault class.",
+                Toast.LENGTH_SHORT
+            ).show()
+            resetApp(password)
+        } catch (e: InvalidClassException) {
+            resetApp(password)
         }
+    }
+
+    fun resetApp(password: String) {
+        Toast.makeText(this, "Data Deleted!", Toast.LENGTH_SHORT).show()
+
+        // TO-DO - "Remove the loadAVault!"
+        DataFile.deleteData(this)
+        Thread.sleep(5000)
+//        loadAVault(password)
+        triggerRebirth(this)
+    }
+
+    fun triggerRebirth(context: Context) {
+        val intent = Intent(context, SplashScreen::class.java)
+//        intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
+//        intent.putExtra(KEY_RESTART_INTENT, nextIntent)
+        context.startActivity(intent)
+        if (context is Activity) {
+            (context as Activity).finish()
+        }
+        Runtime.getRuntime().exit(0)
     }
 
     private fun handleInvalidPassword() {
@@ -119,10 +148,10 @@ class PasswordPage : AppCompatActivity() {
             goToCreateRecordTypePage()
         } else {
             Toast.makeText(
-                    this,
-                    "Vault Not Created!\n" +
-                            "Password should be more than ${Constants.passwordLength} characters",
-                    Toast.LENGTH_SHORT
+                this,
+                "Vault Not Created!\n" +
+                        "Password should be more than ${Constants.passwordLength} characters",
+                Toast.LENGTH_SHORT
             ).show()
         }
     }

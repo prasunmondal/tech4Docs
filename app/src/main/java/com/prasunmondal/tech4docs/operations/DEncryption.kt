@@ -40,7 +40,7 @@ class DEncryption {
             return out.toByteArray()
         }
 
-        @Throws(IOException::class, ClassNotFoundException::class)
+        @Throws(IOException::class, ClassNotFoundException::class, InvalidClassException::class)
         fun byteArrayToObject(data: ByteArray): Any {
             val in1 = ByteArrayInputStream(data)
             val is1 = ObjectInputStream(in1)

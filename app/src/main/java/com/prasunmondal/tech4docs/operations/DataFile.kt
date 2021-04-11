@@ -7,6 +7,7 @@ import com.prasunmondal.tech4docs.models.Vault
 import com.prasunmondal.tech4docs.utils.Applog
 import com.prasunmondal.tech4docs.utils.FileIO
 import java.io.FileNotFoundException
+import java.io.InvalidClassException
 import javax.crypto.BadPaddingException
 
 class DataFile {

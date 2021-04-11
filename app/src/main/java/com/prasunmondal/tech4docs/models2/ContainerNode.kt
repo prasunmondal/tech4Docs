@@ -7,6 +7,7 @@ import com.prasunmondal.tech4docs.operations.DataFile
 class ContainerNode: Node {
     var containerNodes: ArrayList<ContainerNode>
     var dataNodes:  ArrayList<DataNode>
+//    var t: Int = 0
 
     override fun toString(): String {
         return "Name: $name containerNodes: $containerNodes, dataNodes: $dataNodes\n"
