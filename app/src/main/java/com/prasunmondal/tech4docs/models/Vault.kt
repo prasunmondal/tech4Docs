@@ -17,6 +17,10 @@ class Vault : Serializable {
         root = ContainerNode(context, "Vault", null)
     }
 
+    override fun toString(): String {
+        return "Vault: " + root
+    }
+
     companion object {
         var password: String = ""
         var instance: Vault? = null

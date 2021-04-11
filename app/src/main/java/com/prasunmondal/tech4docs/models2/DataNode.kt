@@ -7,6 +7,9 @@ import com.prasunmondal.tech4docs.operations.DataFile
 class DataNode: Node {
     var data: MutableMap<Question, String> = mutableMapOf()
 
+    override fun toString(): String {
+        return "data: $data"
+    }
     constructor(context: Context, name: String, parentContainerNode: ContainerNode) {
         this.name = name
         this.data = mutableMapOf()

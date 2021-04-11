@@ -12,6 +12,10 @@ class Question: Serializable {
     var isActive: Boolean
     var sequenceNo: Int
 
+    override fun toString(): String {
+        return "Question: $question"
+    }
+
     constructor(id: String, question: String, answerType: AnswerType, hideLevel: HideLevel, isActive: Boolean, sequenceNo: Int) {
         this.id = id
         this.question = question

@@ -38,6 +38,7 @@ class DataFile {
 
         fun write(context: Context, key: String) {
             // write the vault to a file after encrypting it!
+            Applog.info("Data Write: \n" + Vault.instance, Throwable())
             var beforeEncoding: ByteArray = DEncryption.objectToByteArray(Vault.instance)
             var afterEncoding: ByteArray = DEncryption.encodeFile(beforeEncoding, key)!!
             var padded = DEncryption.addPadding(afterEncoding)

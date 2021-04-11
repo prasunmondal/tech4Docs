@@ -8,6 +8,10 @@ class ContainerNode: Node {
     var containerNodes: ArrayList<ContainerNode>
     var dataNodes:  ArrayList<DataNode>
 
+    override fun toString(): String {
+        return "Name: $name containerNodes: $containerNodes, dataNodes: $dataNodes\n"
+    }
+
     constructor(context: Context, name: String, parentContainerNode: ContainerNode?) {
         this.name = name
         containerNodes = arrayListOf()
