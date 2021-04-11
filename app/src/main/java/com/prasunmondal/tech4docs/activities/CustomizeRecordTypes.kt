@@ -17,9 +17,10 @@ import com.google.android.material.textfield.TextInputLayout
 import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.enums.AnswerType
 import com.prasunmondal.tech4docs.enums.HideLevel
-import com.prasunmondal.tech4docs.models.Question
+import com.prasunmondal.tech4docs.models2.Question
 import com.prasunmondal.tech4docs.models.Document
 import com.prasunmondal.tech4docs.models.Vault
+import com.prasunmondal.tech4docs.operations.DataFile
 
 
 class CustomizeRecordTypes : AppCompatActivity() {
@@ -118,7 +119,7 @@ class CustomizeRecordTypes : AppCompatActivity() {
             document.questions = mutableListOf<Question>() as ArrayList<Question>
         var id = document.questions.size.toString()
         document.questions.add(Question(id, questionInput.text.toString(), AnswerType.valueOf("STRING"), HideLevel.NO_HIDE, true, id.toInt()))
-        Vault.write(this, Vault.password)
+        DataFile.write(this, Vault.password)
         displayLines()
     }
 

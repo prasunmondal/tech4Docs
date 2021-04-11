@@ -1,4 +1,4 @@
-package com.prasunmondal.tech4docs.models
+package com.prasunmondal.tech4docs.models2
 
 import com.prasunmondal.tech4docs.enums.AnswerType
 import com.prasunmondal.tech4docs.enums.HideLevel

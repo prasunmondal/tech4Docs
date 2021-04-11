@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.models.Document
 import com.prasunmondal.tech4docs.models.Vault
+import com.prasunmondal.tech4docs.operations.DataFile
 
 
 class DocumentType : AppCompatActivity() {
@@ -274,7 +275,7 @@ class DocumentType : AppCompatActivity() {
         val dataTypeCreated = Document(name)
         dataTypeCreated.questions = ArrayList()
         dataCollection.add(dataTypeCreated)
-        Vault.write(this, Vault.password)
+        DataFile.write(this, Vault.password)
         displayLines()
         datatypeNameInput.setText("")
         goToConfigureActivity(dataTypeCreated)

@@ -1,6 +1,7 @@
 package com.prasunmondal.tech4docs.models
 
 import android.content.Context
+import com.prasunmondal.tech4docs.models2.Question
 import java.io.Serializable
 
 class Document : Serializable {

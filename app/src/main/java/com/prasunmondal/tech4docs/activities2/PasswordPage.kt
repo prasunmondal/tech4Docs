@@ -12,6 +12,8 @@ import com.prasunmondal.tech4docs.R
 import com.prasunmondal.tech4docs.activities.DocumentType
 import com.prasunmondal.tech4docs.models.InvalidPasswordException
 import com.prasunmondal.tech4docs.models.Vault
+import com.prasunmondal.tech4docs.operations.DataFile
+import com.prasunmondal.tech4docs.operations.PasswordManage
 import com.prasunmondal.tech4docs.utils.Applog
 import javax.crypto.IllegalBlockSizeException
 
@@ -33,7 +35,7 @@ class PasswordPage : AppCompatActivity() {
         passwordField = findViewById(R.id.configure_recordType_editText_addQues)
         submitButton = findViewById(R.id.password_page_btn_submit)
 
-        val doesVaultExist = Vault.doesExists(this)
+        val doesVaultExist = DataFile.exists(this)
         Applog.info("doesVaultExist", "$doesVaultExist", Throwable())
 
         actionMode = if (doesVaultExist)
@@ -79,7 +81,7 @@ class PasswordPage : AppCompatActivity() {
         Applog.startMethod(Throwable())
         Applog.info("password", password, Throwable())
         try {
-            if(!Vault.verifyPassword(this, password)) {
+            if(!PasswordManage.verifyPassword(this, password)) {
                 handleInvalidPassword()
             } else {
                 Vault.load(this, password)
@@ -105,7 +107,7 @@ class PasswordPage : AppCompatActivity() {
         Applog.startMethod(Throwable())
         var password = getInputPassword()
         Applog.info("password", password, Throwable())
-        if (Vault.isValidCreationPassword(password)) {
+        if (PasswordManage.isValidCreationPassword(password)) {
             Vault.password = password
             Vault.create(this)
             Toast.makeText(this, "New Vault Created!", Toast.LENGTH_SHORT).show()
