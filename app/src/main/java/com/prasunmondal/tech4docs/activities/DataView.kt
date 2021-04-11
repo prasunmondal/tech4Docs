@@ -16,7 +16,7 @@ class DataView : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_display_record_type)
+        setContentView(R.layout.activity_data_view)
 
         fetchReceivedData()
         displayRecords()
