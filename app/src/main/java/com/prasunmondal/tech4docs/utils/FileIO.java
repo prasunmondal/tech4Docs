@@ -88,6 +88,12 @@ public class FileIO {
         }
     }
 
+    public boolean deleteFile(Context context, String fileName) throws Exception {
+        File path = context.getFilesDir();
+        File file = new File(path, fileName + ".txt");
+        return file.delete();
+    }
+
     public void WriteObjectToFile(Context context, String fileName, Object object) {
         try {
             FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);

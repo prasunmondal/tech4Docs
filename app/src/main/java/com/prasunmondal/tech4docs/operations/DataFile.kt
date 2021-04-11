@@ -44,5 +44,9 @@ class DataFile {
             var padded = DEncryption.addPadding(afterEncoding)
             FileIO().WriteBytesToFile(context, Constants.FILENAME_PHONEBOOK, padded)
         }
+
+        fun deleteData(context: Context) {
+            FileIO().deleteFile(context, Constants.FILENAME_PHONEBOOK)
+        }
     }
 }

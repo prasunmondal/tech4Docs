@@ -94,7 +94,11 @@ class PasswordPage : AppCompatActivity() {
             handleInvalidPassword()
         } catch (e: IllegalBlockSizeException) {
             Applog.info("Vault object outdated wrt recent Vault class.", Throwable())
-            Toast.makeText(this, "Vault object outdated w.r.t recent Vault class.", Toast.LENGTH_SHORT).show()
+            DataFile.deleteData(this)
+            Toast.makeText(this, "Vault object outdated w.r.t recent Vault class.\nData Deleted", Toast.LENGTH_SHORT).show()
+
+            TODO("Remove the loadAVault!")
+            loadAVault(password)
         }
     }
 
