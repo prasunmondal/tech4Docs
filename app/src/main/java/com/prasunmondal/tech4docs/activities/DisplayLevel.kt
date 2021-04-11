@@ -318,7 +318,7 @@ class DisplayLevel : AppCompatActivity() {
     //        dataTypeCreated.questions = ArrayList()
     //        dataCollection.add(dataTypeCreated)
 //
-            currentLevel.containerNodes.add(ContainerNode(this, name, parentNode))
+            ContainerNode(this, name, parentNode)
             displayLines()
             datatypeNameInput.setText("")
 //            goToConfigureActivity(dataTypeCreated)
@@ -332,8 +332,8 @@ class DisplayLevel : AppCompatActivity() {
         //        dataTypeCreated.questions = ArrayList()
         //        dataCollection.add(dataTypeCreated)
 //
-        currentLevel.dataNodes.add(DataNode(this, name, currentLevel))
-        DataFile.write(this, Vault.password)
+        DataNode(this, name, currentLevel)
+//        DataFile.write(this, Vault.password)
         displayLines()
         datatypeNameInput.setText("")
 //            goToConfigureActivity(dataTypeCreated)

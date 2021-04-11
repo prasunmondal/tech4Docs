@@ -11,7 +11,7 @@ class DataNode: Node {
         this.name = name
         this.data = mutableMapOf()
         this.parentContainerNode = parentContainerNode
-//        parentContainerNode.dataNodes.add(this)
+        parentContainerNode.dataNodes.add(this)
         DataFile.write(context, Vault.password)
     }
 

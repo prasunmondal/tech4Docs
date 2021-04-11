@@ -17,7 +17,7 @@ class ContainerNode: Node {
         } else {
             this.parentContainerNode = this
         }
-//        this.parentContainerNode.containerNodes.add(this)
+        parentContainerNode!!.containerNodes.add(this)
         DataFile.write(context, Vault.password)
     }
 
